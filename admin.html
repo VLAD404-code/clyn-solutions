@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · C-LYN SOLUTIONS</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body{background:#f0f0f4;min-height:100vh}
+.login{max-width:380px;margin:10vh auto;background:#fff;padding:32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.login h1{margin-bottom:8px}
+.login p{color:#666;margin-bottom:20px;font-size:.9rem}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-bottom:12px}
+.hidden{display:none}
+.admin{max-width:900px;margin:0 auto;padding:24px}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.table{width:100%;background:#fff;border-radius:12px;overflow:hidden;border-collapse:collapse}
+.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left;font-size:.9rem}
+.table th{background:#f7f7f9}
+</style>
+</head>
+<body>
+<div class="login" id="loginBox">
+<h1>Admin Login</h1>
+<p>C-LYN SOLUTIONS · Back Office</p>
+<input type="password" id="pwd" placeholder="Password">
+<button class="btn btn-primary" id="loginBtn" style="width:100%">Login</button>
+<p style="margin-top:12px;font-size:.8rem;color:#888">Default: clyn2026</p>
+<p><a href="index.html">← Back to website</a></p>
+</div>
+<div class="admin hidden" id="adminBox">
+<div class="bar"><h1>C-LYN Admin</h1><div><a class="btn btn-outline" href="index.html" style="color:#1A1A2E;border-color:#ccc">View site</a> <button class="btn btn-primary" id="logoutBtn">Logout</button></div></div>
+<p>Products are managed in the browser (localStorage). Full admin with image upload is in the complete project files — this is a lightweight deploy panel.</p>
+<table class="table"><thead><tr><th>Name</th><th>Category</th><th>Price</th></tr></thead><tbody id="tbody"></tbody></table>
+</div>
+<script src="data.js"></script>
+<script>
+const KEY='clyn_admin_auth';
+if(sessionStorage.getItem(KEY)==='1')showAdmin();
+document.getElementById('loginBtn').onclick=()=>{
+if(document.getElementById('pwd').value===ClynData.ADMIN_PASSWORD){sessionStorage.setItem(KEY,'1');showAdmin()}else alert('Wrong password');
+};
+document.getElementById('logoutBtn').onclick=()=>{sessionStorage.removeItem(KEY);location.reload()};
+function showAdmin(){
+document.getElementById('loginBox').classList.add('hidden');
+document.getElementById('adminBox').classList.remove('hidden');
+const cats={};ClynData.getCategories().forEach(c=>cats[c.id]=c.name);
+document.getElementById('tbody').innerHTML=ClynData.getProducts().map(p=>`<tr><td>${p.name}</td><td>${cats[p.category]||p.category}</td><td>${p.price||'On request'}</td></tr>`).join('');
+}
+</script>
+</body>
+</html>

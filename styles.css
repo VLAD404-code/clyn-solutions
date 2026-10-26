@@ -1,0 +1,35 @@
+:root{--green:#00A651;--green-dark:#008C44;--navy:#1A1A2E;--muted:#5A5A66;--bg:#F7F7F9;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--navy);line-height:1.6;background:var(--white)}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--green);text-decoration:none}
+.header{position:sticky;top:0;background:rgba(26,26,46,.96);color:#fff;z-index:10}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff}
+.logo-mark{width:36px;height:36px;border:2px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--green)}
+.logo-text{display:flex;flex-direction:column;line-height:1.1}
+.logo-text small{font-size:.65rem;opacity:.7}
+.nav{display:flex;gap:14px}
+.nav a{color:rgba(255,255,255,.8);font-size:.9rem}
+.nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:8px;font-weight:600;border:2px solid transparent}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-outline{border-color:rgba(255,255,255,.4);color:#fff}
+.btn-wa{background:#25D366;color:#fff;font-size:.85rem;padding:8px 14px}
+.hero{background:linear-gradient(180deg,#1A1A2E,#12121F);color:#fff;padding:100px 0 80px}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(0,166,81,.15);color:#7dffb3;font-size:.8rem;font-weight:600;margin-bottom:16px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:16px}
+.hero h1 span{color:var(--green)}
+.lead{max-width:540px;color:rgba(255,255,255,.75);margin-bottom:28px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.section{padding:64px 0}
+.section.alt{background:var(--bg)}
+.section h2{font-size:1.8rem;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:24px 0}
+.card{background:#fff;border:1px solid #e8e8ec;border-radius:12px;padding:18px}
+.card h3{font-size:1.05rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.9rem}
+.note{color:var(--muted);margin-top:12px}
+.footer{background:var(--navy);color:rgba(255,255,255,.55);padding:24px 0;text-align:center;font-size:.85rem}
+@media(max-width:700px){.nav{display:none}.hero{padding:80px 0 60px}}
