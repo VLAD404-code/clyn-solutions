@@ -1,52 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin · C-LYN SOLUTIONS</title>
-<link rel="stylesheet" href="styles.css">
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · C-LYN</title>
 <style>
-body{background:#f0f0f4;min-height:100vh}
-.login{max-width:380px;margin:10vh auto;background:#fff;padding:32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
-.login h1{margin-bottom:8px}
-.login p{color:#666;margin-bottom:20px;font-size:.9rem}
-input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-bottom:12px}
-.hidden{display:none}
-.admin{max-width:900px;margin:0 auto;padding:24px}
-.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
-.table{width:100%;background:#fff;border-radius:12px;overflow:hidden;border-collapse:collapse}
-.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left;font-size:.9rem}
-.table th{background:#f7f7f9}
-</style>
-</head>
-<body>
-<div class="login" id="loginBox">
+:root{--g:#00A651;--n:#1A1A2E;--m:#666;--bg:#f0f0f4;--d:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--n)}
+.hidden{display:none!important}.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#fff;padding:32px;border-radius:14px;max-width:380px;width:100%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.card h1{font-size:1.3rem;margin:12px 0 4px}.card p{color:var(--m);font-size:.85rem;margin-bottom:16px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;margin:6px 0;font:inherit}
+.btn{padding:10px 16px;border-radius:8px;border:none;font-weight:600;cursor:pointer;font:inherit}
+.bp{background:var(--g);color:#fff;width:100%}.bs{background:#fff;border:1px solid #ddd}.bd{background:var(--d);color:#fff}
+.sm{padding:6px 10px;font-size:.8rem}
+.top{background:var(--n);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 12px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.stat{background:#fff;padding:12px 20px;border-radius:10px;text-align:center;flex:1;min-width:100px}
+.stat b{display:block;font-size:1.4rem;color:var(--g)}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:8px;background:#fff;border:1px solid #ddd;cursor:pointer}
+.tab.on{background:var(--g);color:#fff;border-color:var(--g)}
+.panel{background:#fff;border-radius:12px;padding:16px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}th{background:#f7f7f9;font-size:.75rem;color:var(--m)}
+img.th{width:36px;height:36px;object-fit:cover;border-radius:4px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;padding:12px;z-index:9}
+.modal .box{background:#fff;border-radius:12px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow:auto}
+.modal label{display:block;font-size:.8rem;font-weight:600;margin-top:8px}
+.preview{max-width:100%;max-height:140px;margin:8px 0;border-radius:6px}
+.row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.err{color:var(--d);font-size:.85rem}
+</style></head><body>
+<div class="login" id="login">
+<div class="card">
+<div style="width:48px;height:48px;border:3px solid var(--g);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--g)">C</div>
 <h1>Admin Login</h1>
 <p>C-LYN SOLUTIONS · Back Office</p>
+<div class="err" id="err"></div>
 <input type="password" id="pwd" placeholder="Password">
-<button class="btn btn-primary" id="loginBtn" style="width:100%">Login</button>
-<p style="margin-top:12px;font-size:.8rem;color:#888">Default: clyn2026</p>
-<p><a href="index.html">← Back to website</a></p>
+<button class="btn bp" id="go">Login</button>
+<p style="margin-top:12px;font-size:.8rem">Default: <b>clyn2026</b><br><a href="index.html">← Website</a></p>
+</div></div>
+<div class="hidden" id="app">
+<div class="top"><h1 style="font-size:1.1rem">C-LYN Admin</h1>
+<div><a class="btn bs sm" href="index.html" style="text-decoration:none;color:var(--n)">View site</a>
+<button class="btn bs sm" id="out">Logout</button></div></div>
+<div class="wrap">
+<div class="stats">
+<div class="stat"><b id="sp">0</b>Products</div>
+<div class="stat"><b id="sc">0</b>Categories</div>
+<div class="stat"><b id="sf">0</b>Featured</div>
 </div>
-<div class="admin hidden" id="adminBox">
-<div class="bar"><h1>C-LYN Admin</h1><div><a class="btn btn-outline" href="index.html" style="color:#1A1A2E;border-color:#ccc">View site</a> <button class="btn btn-primary" id="logoutBtn">Logout</button></div></div>
-<p>Products are managed in the browser (localStorage). Full admin with image upload is in the complete project files — this is a lightweight deploy panel.</p>
-<table class="table"><thead><tr><th>Name</th><th>Category</th><th>Price</th></tr></thead><tbody id="tbody"></tbody></table>
+<div class="tabs">
+<button class="tab on" data-t="p">Products</button>
+<button class="tab" data-t="c">Categories</button>
+<button class="tab" data-t="b">Backup</button>
 </div>
+<div class="panel" id="tp">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px;align-items:center">
+<h2 style="font-size:1rem">Products</h2>
+<button class="btn bp sm" id="addP">+ Add Product</button>
+</div>
+<div style="overflow-x:auto"><table><thead><tr><th>Img</th><th>Name</th><th>Category</th><th>Price</th><th>Feat</th><th></th></tr></thead>
+<tbody id="prows"></tbody></table></div>
+</div>
+<div class="panel hidden" id="tc">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px">
+<h2 style="font-size:1rem">Categories</h2>
+<button class="btn bp sm" id="addC">+ Add</button>
+</div>
+<table><thead><tr><th>Name</th><th>ID</th><th></th></tr></thead><tbody id="crows"></tbody></table>
+</div>
+<div class="panel hidden" id="tb">
+<h2 style="font-size:1rem;margin-bottom:8px">Backup / Reset</h2>
+<p style="color:var(--m);font-size:.85rem;margin-bottom:12px">Data is stored in this browser. Download a backup so you don't lose products.</p>
+<button class="btn bp sm" id="exp">Download Backup</button>
+<label class="btn bs sm" style="display:inline-block;cursor:pointer">Import<input type="file" id="imp" accept=".json" hidden></label>
+<button class="btn bd sm" id="rst">Reset Defaults</button>
+</div>
+</div></div>
+<div class="modal hidden" id="mod">
+<div class="box">
+<h3 id="mt">Add Product</h3>
+<input type="hidden" id="eid">
+<label>Name *</label><input id="pn">
+<label>Category</label><select id="pc"></select>
+<label>Description</label><textarea id="pd" rows="2"></textarea>
+<label>Price</label><input id="pp" value="On request">
+<label>Part #</label><input id="ppt">
+<label><input type="checkbox" id="pf" style="width:auto"> Featured</label>
+<label>Image</label><input type="file" id="pi" accept="image/*">
+<img class="preview" id="pr" style="display:none">
+<button type="button" class="btn bs sm" id="ri" style="display:none;margin:6px 0">Remove image</button>
+<input type="hidden" id="pid">
+<div class="row">
+<button class="btn bs" id="can">Cancel</button>
+<button class="btn bp" id="sav" style="width:auto">Save</button>
+</div></div></div>
 <script src="data.js"></script>
 <script>
-const KEY='clyn_admin_auth';
-if(sessionStorage.getItem(KEY)==='1')showAdmin();
-document.getElementById('loginBtn').onclick=()=>{
-if(document.getElementById('pwd').value===ClynData.ADMIN_PASSWORD){sessionStorage.setItem(KEY,'1');showAdmin()}else alert('Wrong password');
-};
-document.getElementById('logoutBtn').onclick=()=>{sessionStorage.removeItem(KEY);location.reload()};
-function showAdmin(){
-document.getElementById('loginBox').classList.add('hidden');
-document.getElementById('adminBox').classList.remove('hidden');
-const cats={};ClynData.getCategories().forEach(c=>cats[c.id]=c.name);
-document.getElementById('tbody').innerHTML=ClynData.getProducts().map(p=>`<tr><td>${p.name}</td><td>${cats[p.category]||p.category}</td><td>${p.price||'On request'}</td></tr>`).join('');
-}
-</script>
-</body>
-</html>
+const A='clyn_ok';let P=[],C=[],img='';
+const $=id=>document.getElementById(id);
+const show=(el,on)=>el.classList.toggle('hidden',!on);
+function load(){P=ClynData.getProducts();C=ClynData.getCategories()}
+function save(){ClynData.saveProducts(P);ClynData.saveCategories(C)}
+function cn(id){const c=C.find(x=>x.id===id);return c?c.name:id}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({ '&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[m]))}
+function stats(){$('sp').textContent=P.length;$('sc').textContent=C.length;$('sf').textContent=P.filter(p=>p.featured).length}
+function renderP(){
+$('prows').innerHTML=P.map(p=>`<tr>
+<td>${p.image?`<img class="th" src="${p.image}">`:'—'}</td>
+<td><b>${esc(p.name)}</b></td><td>${esc(cn(p.category))}</td><td>${esc(p.price||'On request')}</td>
+<td>${p.featured?'Yes':'—'}</td>
+<td><button class="btn bs sm" data-e="${p.id}">Edit</button> <button class="btn bd sm" data-d="${p.id}">Del</button></td>
+</tr>`).join('')||'<tr><td colspan="6">No products. Click Add Product.</td></tr>'}
+function renderC(){
+$('crows').innerHTML=C.map(c=>`<tr><td>${esc(c.name)}</td><td><code>${esc(c.id)}</code></td>
+<td><button class="btn bd sm" data-dc="${c.id}">Del</button></td></tr>`).join('')}
+function all(){stats();renderP();renderC()}
+function openM(p){
+$('mt').textContent=p?'Edit Product':'Add Product';
+$('eid').value=p?p.id:'';$('pn').value=p?p.name:'';$('pd').value=p?p.description||'':'';
+$('pp').value=p?p.price||'On request':'On request';$('ppt').value=p?p.partNumber||'':'';
+$('pf').checked=p?!!p.featured:false;img=p&&p.image?p.image:'';$('pid').value=img;$('pi').value='';
+const pr=$('pr');if(img){pr.src=img;pr.style.display='block';$('ri').style.display='inline-block'}
+else{pr.style.display='none';$('ri').style.display='none'}
+$('pc').innerHTML=C.map(c=>`<option value="${c.id}" ${p&&p.category===c.id?'selected':''}>${esc(c.name)}</option>`).join('');
+show($('mod'),true)}
+function closeM(){show($('mod'),false)}
+function resize(file,cb){const r=new FileReader();r.onload=e=>{const i=new Image();i.onload=()=>{let w=i.width,h=i.height;if(w>600){h=Math.round(h*600/w);w=600}
+const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(i,0,0,w,h);cb(c.toDataURL('image/jpeg',.82))};i.src=e.target.result};r.readAsDataURL(file)}
+function saveP(){
+const name=$('pn').value.trim();if(!name){alert('Name required');return}
+const id=$('eid').value||('p'+Date.now());
+const item={id,name,category:$('pc').value,description:$('pd').value.trim(),price:$('pp').value.trim()||'On request',partNumber:$('ppt').value.trim(),featured:$('pf').checked,image:$('pid').value||''};
+const ix=P.findIndex(x=>x.id===id);if(ix>=0)P[ix]=item;else P.unshift(item);
+save();all();closeM()}
+function enter(){show($('login'),false);show($('app'),true);load();all()}
+$('go').onclick=()=>{if($('pwd').value===ClynData.ADMIN_PASSWORD){sessionStorage.setItem(A,'1');enter()}else $('err').textContent='Wrong password'};
+$('pwd').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+$('out').onclick=()=>{sessionStorage.removeItem(A);location.reload()};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+['p','c','b'].forEach(k=>show($('t'+k),t.dataset.t===k))});
+$('addP').onclick=()=>openM(null);$('can').onclick=closeM;$('sav').onclick=saveP;
+$('mod').onclick=e=>{if(e.target===$('mod'))closeM()};
+$('pi').onchange=e=>{const f=e.target.files[0];if(!f)return;resize(f,d=>{img=d;$('pid').value=d;$('pr').src=d;$('pr').style.display='block';$('ri').style.display='inline-block'})};
+$('ri').onclick=()=>{img='';$('pid').value='';$('pi').value='';$('pr').style.display='none';$('ri').style.display='none'};
+$('prows').onclick=e=>{const ed=e.target.closest('[data-e]');const de=e.target.closest('[data-d]');
+if(ed){const p=P.find(x=>x.id===ed.dataset.e);if(p)openM(p)}
+if(de&&confirm('Delete?')){P=P.filter(x=>x.id!==de.dataset.d);save();all()}};
+$('addC').onclick=()=>{const n=prompt('Category name');if(!n||!n.trim())return;
+const id=n.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||('c'+Date.now());
+if(C.some(c=>c.id===id)){alert('Exists');return}C.push({id,name:n.trim()});save();all()};
+$('crows').onclick=e=>{const d=e.target.closest('[data-dc]');if(!d)return;
+if(P.some(p=>p.category===d.dataset.dc)){alert('Products use this category');return}
+if(confirm('Delete category?')){C=C.filter(c=>c.id!==d.dataset.dc);save();all()}};
+$('exp').onclick=()=>{const b=new Blob([JSON.stringify(ClynData.exportAll(),null,2)],{type:'application/json'});
+const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='clyn-backup.json';a.click()};
+$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{ClynData.importAll(JSON.parse(ev.target.result));load();all();alert('Imported')}catch(err){alert('Invalid file')}};r.readAsText(f);e.target.value=''};
+$('rst').onclick=()=>{if(confirm('Reset all to defaults?')){ClynData.resetAll();load();all()}};
+if(sessionStorage.getItem(A)==='1')enter();
+</script></body></html>
