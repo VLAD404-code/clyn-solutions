@@ -1,5 +1,5 @@
 /**
- * C-LYN data layer — loads inventory from products.json
+ * C-LYN data layer — loads inventory from split JSON files
  */
 const ClynData = {
   STORAGE_PRODUCTS: 'clyn_products',
@@ -18,29 +18,30 @@ const ClynData = {
 
   load() {
     if (this._ready) return this._ready;
-    this._ready = fetch('products.json')
-      .then(r => r.json())
-      .then(data => {
-        this._cats = (data.categories || []).map(c => ({ id: c.id, name: c.name, icon: '', description: '' }));
-        this._products = (data.products || []).map(p => ({
-          id: p.id,
-          name: p.n,
-          category: p.c,
-          description: p.d || '',
-          partNumber: p.s || '',
-          price: p.p,
-          priceNum: p.pn,
-          featured: !!p.f,
-          image: ''
-        }));
-        this.defaultCategories = this._cats;
-        this.defaultProducts = this._products;
-        return true;
-      })
-      .catch(err => {
-        console.error('Failed to load products.json', err);
-        return false;
-      });
+    this._ready = Promise.all([
+      fetch('products-a.json').then(r => r.json()),
+      fetch('products-b.json').then(r => r.json())
+    ]).then(([a, b]) => {
+      this._cats = (a.categories || []).map(c => ({ id: c.id, name: c.name, icon: '', description: '' }));
+      const raw = [...(a.products || []), ...(b.products || [])];
+      this._products = raw.map(p => ({
+        id: p.id,
+        name: p.n,
+        category: p.c,
+        description: p.d || '',
+        partNumber: p.s || '',
+        price: p.p,
+        priceNum: p.pn,
+        featured: !!p.f,
+        image: ''
+      }));
+      this.defaultCategories = this._cats;
+      this.defaultProducts = this._products;
+      return true;
+    }).catch(err => {
+      console.error('Failed to load inventory', err);
+      return false;
+    });
     return this._ready;
   },
 
