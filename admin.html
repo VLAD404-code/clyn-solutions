@@ -72,7 +72,7 @@
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Name</th><th>ID</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Photo</th><th>Name</th><th>ID</th><th>Actions</th></tr></thead>
           <tbody id="catRows"></tbody>
         </table>
       </div>
@@ -88,6 +88,27 @@
           <button class="btn btn-danger btn-sm" id="resetBtn">Reset to defaults</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg hidden" id="categoryModal">
+  <div class="modal">
+    <h3 id="categoryModalTitle">Add category</h3>
+    <input type="hidden" id="editCatId">
+    <label>Category name *</label>
+    <input id="cName" placeholder="e.g. Mining Parts">
+    <label>Description</label>
+    <textarea id="cDesc" rows="2" placeholder="Short description shown on the website"></textarea>
+    <label>Category photo (profile image)</label>
+    <p class="muted" style="font-size:0.82rem;margin:-4px 0 8px">This photo appears on the homepage category cards. Use a clear product photo on a plain background.</p>
+    <input type="file" id="cImage" accept="image/*">
+    <img class="preview" id="cPreview" alt="Category preview">
+    <button type="button" class="btn btn-ghost btn-sm" id="removeCatImageBtn" style="display:none;margin-bottom:12px">Remove photo</button>
+    <input type="hidden" id="cImageData">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelCategory">Cancel</button>
+      <button class="btn btn-primary" id="saveCategory" style="width:auto;min-width:120px">Save category</button>
     </div>
   </div>
 </div>
