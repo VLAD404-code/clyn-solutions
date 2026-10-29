@@ -1,0 +1,1 @@
+window.ClynImages=window.ClynImages||{};ClynImages.mining='data:image/jpeg;base64,PLACEHOLDER';
