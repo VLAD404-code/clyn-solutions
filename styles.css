@@ -281,6 +281,45 @@ a:hover { color: var(--green-dark); }
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+.cat-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  animation: fadeUp 0.5s var(--ease) both;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.1);
+  color: inherit;
+}
+.cat-img {
+  aspect-ratio: 1;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cat-icon { font-size: 2.5rem; }
+.cat-body { padding: 14px 16px 16px; }
+.cat-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+.cat-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.4; margin: 0; }
+
 @media (max-width: 860px) {
   .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .nav {
@@ -293,6 +332,10 @@ a:hover { color: var(--green-dark); }
   .menu-btn { display: block; }
   .hero { padding: 64px 0 72px; }
   .section { padding: 56px 0; }
+}
+@media (max-width: 640px) {
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cat-body p { display: none; }
 }
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr; }
