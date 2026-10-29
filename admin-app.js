@@ -7,7 +7,7 @@
   function load(){ products=ClynData.getProducts(); categories=ClynData.getCategories(); }
   function persist(){ ClynData.saveProducts(products); ClynData.saveCategories(categories); }
   function catName(id){ const c=categories.find(x=>x.id===id); return c?c.name:id; }
-  function esc(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[m])); }
 
   function renderStats(){
     $('statProducts').textContent=products.length;
@@ -33,11 +33,18 @@
   }
 
   function renderCats(){
-    $('catRows').innerHTML=categories.map(c=>`<tr>
-      <td><strong>${esc(c.name)}</strong></td>
-      <td><code style="font-size:.8rem;color:#6B7280">${esc(c.id)}</code></td>
-      <td><button class="btn btn-danger btn-sm" data-delcat="${c.id}">Delete</button></td>
-    </tr>`).join('');
+    $('catRows').innerHTML=categories.map(c=>{
+      const img=c.image?`<img class="thumb" src="${c.image}" alt="">`:'<span style="color:#ccc">—</span>';
+      return `<tr>
+      <td>${img}</td>
+      <td><strong>${esc(c.name)}</strong>${c.description?`<div class="muted" style="font-size:0.8rem;margin-top:2px">${esc(c.description)}</div>`:''}</td>
+      <td><code>${esc(c.id)}</code></td>
+      <td class="actions-cell">
+        <button class="btn btn-ghost btn-sm" data-editcat="${c.id}">Edit</button>
+        <button class="btn btn-danger btn-sm" data-delcat="${c.id}">Delete</button>
+      </td>
+    </tr>`;
+    }).join('')||'<tr><td colspan="4" style="text-align:center;color:#6B7280;padding:32px">No categories yet.</td></tr>';
   }
 
   function fillCatSelect(selected){
@@ -159,16 +166,79 @@
     }
   };
 
-  $('addCatBtn').onclick=()=>{
-    const name=prompt('Category name');
-    if(!name||!name.trim()) return;
-    const id=name.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||('cat'+Date.now());
-    if(categories.some(c=>c.id===id)){ alert('A category with this name already exists'); return; }
-    categories.push({id,name:name.trim()});
-    persist(); renderAll();
+  let catImageData='';
+
+  function openCategory(c){
+    $('categoryModalTitle').textContent=c?'Edit category':'Add category';
+    $('editCatId').value=c?c.id:'';
+    $('cName').value=c?c.name:'';
+    $('cDesc').value=c?c.description||'':'';
+    catImageData=c&&c.image?c.image:'';
+    $('cImageData').value=catImageData;
+    $('cImage').value='';
+    const prev=$('cPreview');
+    if(catImageData){ prev.src=catImageData; prev.classList.add('show'); $('removeCatImageBtn').style.display='inline-flex'; }
+    else{ prev.classList.remove('show'); prev.removeAttribute('src'); $('removeCatImageBtn').style.display='none'; }
+    show($('categoryModal'),true);
+    $('cName').focus();
+  }
+  function closeCategory(){ show($('categoryModal'),false); }
+
+  function saveCategory(){
+    const name=$('cName').value.trim();
+    if(!name){ alert('Category name is required'); return; }
+    const existingId=$('editCatId').value;
+    const id=existingId || name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || ('cat'+Date.now());
+    if(!existingId && categories.some(c=>c.id===id)){
+      alert('A category with this name already exists');
+      return;
+    }
+    const item={
+      id,
+      name,
+      description:$('cDesc').value.trim(),
+      icon: (categories.find(c=>c.id===id)||{}).icon || '📦',
+      image:$('cImageData').value||''
+    };
+    const idx=categories.findIndex(c=>c.id===id);
+    if(idx>=0) categories[idx]={...categories[idx],...item};
+    else categories.push(item);
+    persist(); renderAll(); closeCategory();
+  }
+
+  $('addCatBtn').onclick=()=>openCategory(null);
+  $('cancelCategory').onclick=closeCategory;
+  $('saveCategory').onclick=saveCategory;
+  $('categoryModal').onclick=e=>{ if(e.target.id==='categoryModal') closeCategory(); };
+
+  $('cImage').onchange=e=>{
+    const file=e.target.files[0];
+    if(!file) return;
+    resizeImage(file,900,data=>{
+      catImageData=data;
+      $('cImageData').value=data;
+      const prev=$('cPreview');
+      prev.src=data; prev.classList.add('show');
+      $('removeCatImageBtn').style.display='inline-flex';
+    });
   };
+  $('removeCatImageBtn').onclick=()=>{
+    catImageData='';
+    $('cImageData').value='';
+    $('cImage').value='';
+    $('cPreview').classList.remove('show');
+    $('cPreview').removeAttribute('src');
+    $('removeCatImageBtn').style.display='none';
+  };
+
   $('catRows').onclick=e=>{
+    const edit=e.target.closest('[data-editcat]');
     const del=e.target.closest('[data-delcat]');
+    if(edit){
+      const c=categories.find(x=>x.id===edit.dataset.editcat);
+      if(c) openCategory(c);
+      return;
+    }
     if(!del) return;
     if(products.some(p=>p.category===del.dataset.delcat)){
       alert('Cannot delete: products still use this category. Move or delete those products first.');
