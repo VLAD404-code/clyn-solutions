@@ -1,0 +1,121 @@
+/* Quotation cart – fixed side panel */
+.cart-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #00A651;
+  color: #fff;
+  font-size: 1.35rem;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(0, 166, 81, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cart-fab:hover { transform: scale(1.06); }
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #fff;
+  color: #00A651;
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 210;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+.cart-overlay.open { opacity: 1; visibility: visible; }
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(400px, 100vw);
+  height: 100%;
+  max-height: 100vh;
+  background: #fff;
+  z-index: 220;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -12px 0 40px rgba(0,0,0,0.18);
+}
+.cart-panel.open { transform: translateX(0); }
+.cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #E8E8EC;
+}
+.cart-head h3 { font-size: 1.05rem; font-weight: 700; margin: 0; }
+.cart-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+.cart-empty { color: #5A5A66; font-size: 0.95rem; text-align: center; padding: 40px 12px; }
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #E8E8EC;
+}
+.cart-item strong { display: block; font-size: 0.95rem; }
+.cart-item small { color: #5A5A66; font-size: 0.8rem; }
+.cart-price { display: block; font-size: 0.85rem; color: #00A651; font-weight: 600; margin-top: 2px; }
+.cart-foot { padding: 16px 20px 24px; border-top: 1px solid #E8E8EC; background: #fafafa; }
+.btn-block { width: 100%; }
+
+.hero-bg {
+  position: relative;
+  background-color: #0a1628;
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+}
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(10,22,40,0.94) 0%, rgba(10,22,40,0.82) 45%, rgba(10,22,40,0.55) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-bg .container { position: relative; z-index: 1; }
+
+.cat-grid:empty::after {
+  content: "Categories will appear here once added in Admin.";
+  display: block;
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #5A5A66;
+  padding: 28px 16px;
+  font-size: 0.95rem;
+}
+.wall-section {
+  background: linear-gradient(135deg, #0f172a 0%, #12261a 100%);
+  color: #fff;
+  padding: 64px 0;
+}
+.wall-section .section-label { color: #7dffb3; }
+.wall-section h2 { color: #fff; }
+.wall-section .section-sub { color: rgba(255,255,255,0.78); margin-bottom: 22px; }
