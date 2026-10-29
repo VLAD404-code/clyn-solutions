@@ -7,7 +7,7 @@
 
   function esc(s) {
     return String(s || '').replace(/[&<>"']/g, m =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])
+      ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;' }[m])
     );
   }
 
@@ -139,7 +139,6 @@
 
   function initCartUI() {
     if ($('cartFab')) return;
-
     const fab = document.createElement('button');
     fab.id = 'cartFab';
     fab.className = 'cart-fab';
@@ -148,13 +147,11 @@
     fab.innerHTML = `📋 <span id="cartBadge" class="cart-badge">0</span>`;
     fab.onclick = openCart;
     document.body.appendChild(fab);
-
     const overlay = document.createElement('div');
     overlay.id = 'cartOverlay';
     overlay.className = 'cart-overlay';
     overlay.onclick = closeCart;
     document.body.appendChild(overlay);
-
     const panel = document.createElement('div');
     panel.id = 'cartPanel';
     panel.className = 'cart-panel';
@@ -170,7 +167,6 @@
       </div>
     `;
     document.body.appendChild(panel);
-
     $('cartClose').onclick = closeCart;
     $('cartQuote').onclick = quoteWhatsApp;
     $('cartClear').onclick = () => {
@@ -237,6 +233,25 @@
         if (p) addToCart(p);
       }
     };
+  }
+
+  function initCategories() {
+    const grid = $('categoryGrid');
+    if (!grid || typeof ClynData === 'undefined') return;
+    const categories = ClynData.getCategories();
+    grid.innerHTML = categories.map((c, i) => {
+      const src = c.image || '';
+      const img = src
+        ? `<img src="${src}" alt="${esc(c.name)}" loading="lazy">`
+        : `<span class="cat-icon">${c.icon || '📦'}</span>`;
+      return `<a class="cat-card" href="products.html?cat=${encodeURIComponent(c.id)}" style="animation-delay:${i * 50}ms">
+        <div class="cat-img">${img}</div>
+        <div class="cat-body">
+          <h3>${esc(c.name)}</h3>
+          <p>${esc(c.description || '')}</p>
+        </div>
+      </a>`;
+    }).join('');
   }
 
   function initHome() {
@@ -373,6 +388,7 @@
     initHeader();
     initReveal();
     initCartUI();
+    initCategories();
     initHome();
     initProductsPage();
   });
