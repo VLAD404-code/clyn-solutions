@@ -11,14 +11,16 @@
   height: 40px;
   object-fit: contain;
   border-radius: 8px;
-  display: none;
+  display: none !important;
   flex-shrink: 0;
-  background: #fff;
-  padding: 2px;
+  background: transparent;
+  padding: 0;
 }
 .logo-img.has-logo,
 #siteLogo.has-logo {
   display: block !important;
+  background: #fff;
+  padding: 2px;
 }
 .logo-mark {
   width: 38px;
@@ -27,7 +29,7 @@
   border: 2px solid #00A651;
   background: rgba(0, 166, 81, 0.12);
   color: #00A651;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   font-weight: 800;
@@ -36,7 +38,7 @@
   line-height: 1;
 }
 .logo.has-logo-img .logo-mark {
-  display: none;
+  display: none !important;
 }
 .logo-text {
   display: flex;
@@ -46,12 +48,12 @@
 .logo-text strong {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #fff;
+  color: #fff !important;
 }
 .logo-text small {
   font-size: 0.62rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.65) !important;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -71,7 +73,5 @@
   display: block !important;
 }
 @media (max-width: 860px) {
-  .logo-text small {
-    display: none;
-  }
+  .logo-text small { display: none; }
 }

@@ -1,4 +1,3 @@
-/** Seed sample catalogue if empty + render category tiles */
 (function () {
   var SAMPLE_CATS = [
     { id: 'filters', name: 'Filters', image: '', description: 'Oil, fuel, air filters' },
@@ -17,32 +16,22 @@
     { id: 'p6', name: 'Engine Gasket Kit', category: 'engine', partNumber: 'EGK-6CT', price: 'On request', featured: true, description: 'Full upper gasket set', image: '' }
   ];
 
-  function seed() {
-    if (typeof ClynData === 'undefined') return false;
+  function ensureData() {
+    if (typeof ClynData === 'undefined') return;
     var products = ClynData.getProducts();
     var cats = ClynData.getCategories();
-    var changed = false;
     if (!products || !products.length) {
-      ClynData.saveProducts(SAMPLE_PRODUCTS);
-      changed = true;
+      localStorage.setItem('clyn_products', JSON.stringify(SAMPLE_PRODUCTS));
     }
     if (!cats || !cats.length) {
-      ClynData.saveCategories(SAMPLE_CATS);
-      changed = true;
+      localStorage.setItem('clyn_categories', JSON.stringify(SAMPLE_CATS));
     }
-    if (changed) {
-      window.dispatchEvent(new Event('clyn-seeded'));
-      if (window.ClynCloud && typeof ClynCloud.publish === 'function') {
-        ClynCloud.publish().catch(function () {});
-      }
-    }
-    return changed;
   }
 
   function renderCats() {
     var grid = document.getElementById('categoryGrid');
-    if (!grid || typeof ClynData === 'undefined') return;
-    var cats = ClynData.getCategories();
+    if (!grid) return;
+    var cats = (typeof ClynData !== 'undefined') ? ClynData.getCategories() : [];
     if (!cats.length) cats = SAMPLE_CATS;
     var icons = ['🔧', '⚙️', '🛑', '⚡', '💧', '🔩'];
     grid.innerHTML = cats.map(function (c, i) {
@@ -54,15 +43,15 @@
   }
 
   function boot() {
-    seed();
+    ensureData();
     renderCats();
     window.dispatchEvent(new Event('clyn-seeded'));
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 200); });
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 100); });
   } else {
-    setTimeout(boot, 200);
+    setTimeout(boot, 100);
   }
-  window.addEventListener('clyn-cloud-ready', function () { setTimeout(boot, 80); });
+  window.addEventListener('clyn-cloud-ready', function () { setTimeout(boot, 60); });
 })();
