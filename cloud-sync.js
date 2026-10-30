@@ -1,6 +1,3 @@
-/**
- * Cloud sync — shared data for all visitors; never wipe good local data with empty cloud arrays
- */
 (function () {
   var API = '/api/data';
   var ADMIN_PASS = 'clyn2026';
@@ -13,7 +10,6 @@
   function applyCloud(data) {
     if (!data || data.empty) return false;
     try {
-      // Only overwrite a store if cloud has real content (avoid wiping catalogue with [])
       if (hasItems(data.products)) {
         localStorage.setItem('clyn_products', JSON.stringify(data.products));
       }
@@ -34,7 +30,7 @@
       if (hasItems(data.logs)) {
         localStorage.setItem('clyn_logs', JSON.stringify(data.logs));
       }
-      if (data.analytics && (data.analytics.totalViews || 0) > 0) {
+      if (data.analytics && typeof data.analytics === 'object') {
         localStorage.setItem('clyn_analytics', JSON.stringify(data.analytics));
       }
       window.dispatchEvent(new CustomEvent('clyn-cloud-ready', { detail: data }));
@@ -91,29 +87,20 @@
         publishAll().then(function (res) {
           var el = document.getElementById('cloudStatus');
           if (res && res.ok) {
-            console.log('Cloud published');
             if (el) { el.textContent = 'Live ✓ Saved for all visitors'; el.style.color = '#00A651'; }
           } else {
-            console.warn('Cloud publish failed', res);
             if (el) { el.textContent = 'Saved on this device — cloud issue'; el.style.color = '#b45309'; }
           }
-        }).catch(function (e) { console.warn(e); });
+        }).catch(function () {});
       };
     });
   }
 
   window.ClynCloud = { load: loadCloud, publish: publishAll, apply: applyCloud };
-
-  loadCloud().then(function () {
-    hookSaves();
-    // Re-render featured products after cloud merge
-    if (typeof window.renderFeatured === 'function') window.renderFeatured();
-    else if (typeof initHome === 'function') initHome();
-  });
-
+  loadCloud().then(function () { hookSaves(); });
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setTimeout(hookSaves, 300); });
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(hookSaves, 400); });
   } else {
-    setTimeout(hookSaves, 300);
+    setTimeout(hookSaves, 400);
   }
 })();
