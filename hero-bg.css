@@ -1,0 +1,20 @@
+/* Hero background — industrial look; photo loads on top if present */
+.hero-bg {
+  position: relative;
+  background-color: #0a1628;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 85% 40%, rgba(0, 166, 81, 0.18) 0%, transparent 55%),
+    linear-gradient(160deg, #1A1A2E 0%, #12121F 50%, #0a1a12 100%);
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+}
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(10,22,40,0.92) 0%, rgba(10,22,40,0.78) 42%, rgba(10,22,40,0.45) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-bg .container { position: relative; z-index: 1; }
