@@ -2,6 +2,24 @@
   var FEATURED_LIMIT = 6;
   var WA = '260965018323';
 
+  function toast(msg) {
+    var t = document.getElementById('clynToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'clynToast';
+      t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A2E;color:#fff;padding:12px 20px;border-radius:10px;font-size:0.9rem;font-weight:600;z-index:9999;opacity:0;transition:all .3s ease;pointer-events:none;box-shadow:0 8px 30px rgba(0,0,0,.25);max-width:90%;text-align:center';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(t._tm);
+    t._tm = setTimeout(function () {
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 2200);
+  }
+
   function esc(s) {
     return String(s || '').replace(/[&<>"']/g, function (m) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
@@ -60,7 +78,7 @@
               cart.push({ id: p2.id, name: p2.name, partNumber: p2.partNumber || '', price: p2.price || 'On request', qty: 1 });
               ClynData.saveCart(cart);
             }
-            alert('Added to quotation list: ' + p2.name);
+            toast('Added to quotation list');
           } catch (err) {}
         }
       }
@@ -107,11 +125,9 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       setTimeout(boot, 300);
-      setTimeout(boot, 800);
-      setTimeout(boot, 1500);
+      setTimeout(boot, 900);
     });
   } else {
     setTimeout(boot, 300);
-    setTimeout(boot, 800);
   }
 })();
