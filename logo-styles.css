@@ -1,24 +1,60 @@
-/* Official C-LYN logo */
+/* Official logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
 .logo-img {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #fff;
+  object-fit: contain;
+  border-radius: 8px;
+  display: none;
   flex-shrink: 0;
-  box-shadow: 0 0 0 2px rgba(0, 166, 81, 0.35);
 }
-.logo-mark { display: none; }
-@media (max-width: 480px) {
-  .logo-img { width: 40px; height: 40px; }
-}
-.login-logo { background: transparent !important; border: none !important; width: auto !important; height: auto !important; padding: 0 !important; font-size: 0 !important; }
-.login-logo-img {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  object-fit: cover;
+.logo-img[src]:not([src=""]) {
   display: block;
-  margin: 0 auto;
-  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+}
+.logo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--green, #00A651);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.logo-text strong {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text, #1a1a2e);
+}
+.logo-text small {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted, #6b7280);
+  text-transform: uppercase;
+}
+#adminLogo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+@media (max-width: 860px) {
+  .logo-img { width: 40px; height: 40px; }
+  .logo-text small { display: none; }
 }
