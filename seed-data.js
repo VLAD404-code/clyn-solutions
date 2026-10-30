@@ -1,4 +1,4 @@
-/** Seed sample catalogue if empty — so UI is never a blank void */
+/** Seed sample catalogue if empty + render category tiles */
 (function () {
   var SAMPLE_CATS = [
     { id: 'filters', name: 'Filters', image: '', description: 'Oil, fuel, air filters' },
@@ -18,7 +18,7 @@
   ];
 
   function seed() {
-    if (typeof ClynData === 'undefined') return;
+    if (typeof ClynData === 'undefined') return false;
     var products = ClynData.getProducts();
     var cats = ClynData.getCategories();
     var changed = false;
@@ -30,8 +30,11 @@
       ClynData.saveCategories(SAMPLE_CATS);
       changed = true;
     }
-    if (changed && window.ClynCloud && typeof ClynCloud.publish === 'function') {
-      ClynCloud.publish().catch(function () {});
+    if (changed) {
+      window.dispatchEvent(new Event('clyn-seeded'));
+      if (window.ClynCloud && typeof ClynCloud.publish === 'function') {
+        ClynCloud.publish().catch(function () {});
+      }
     }
     return changed;
   }
@@ -41,10 +44,11 @@
     if (!grid || typeof ClynData === 'undefined') return;
     var cats = ClynData.getCategories();
     if (!cats.length) cats = SAMPLE_CATS;
-    var icons = ['🔧', '⚙️', '🛑', '⚡', '💧', '🔩', '📦', '🛠️'];
+    var icons = ['🔧', '⚙️', '🛑', '⚡', '💧', '🔩'];
     grid.innerHTML = cats.map(function (c, i) {
-      return '<a class="cat-tile" href="products.html?cat=' + encodeURIComponent(c.id) + '" style="animation-delay:' + (i * 70) + 'ms">' +
-        '<div class="cat-icon">' + (icons[i % icons.length]) + '</div>' +
+      return '<a class="cat-tile" href="products.html?cat=' + encodeURIComponent(c.id) +
+        '" style="animation-delay:' + (i * 80) + 'ms">' +
+        '<div class="cat-icon">' + icons[i % icons.length] + '</div>' +
         '<strong>' + (c.name || c.id) + '</strong></a>';
     }).join('');
   }
@@ -52,27 +56,13 @@
   function boot() {
     seed();
     renderCats();
-    // Re-run home featured after seed
-    setTimeout(function () {
-      if (typeof ClynData !== 'undefined') {
-        var grid = document.getElementById('featuredGrid');
-        if (grid && grid.textContent.indexOf('No products') !== -1) {
-          // trigger re-init by dispatching
-          window.dispatchEvent(new Event('clyn-seeded'));
-        }
-      }
-    }, 100);
+    window.dispatchEvent(new Event('clyn-seeded'));
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      setTimeout(boot, 150);
-    });
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 200); });
   } else {
-    setTimeout(boot, 150);
+    setTimeout(boot, 200);
   }
-
-  window.addEventListener('clyn-cloud-ready', function () {
-    setTimeout(boot, 50);
-  });
+  window.addEventListener('clyn-cloud-ready', function () { setTimeout(boot, 80); });
 })();
