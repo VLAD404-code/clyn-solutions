@@ -1,0 +1,139 @@
+/* Motion, texture, polish layer */
+html { scroll-behavior: smooth; }
+
+body {
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(0, 166, 81, 0.04), transparent 50%);
+}
+
+.header {
+  transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.header.scrolled {
+  background: rgba(18, 18, 31, 0.96);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
+}
+
+.logo {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.logo:hover { transform: translateY(-1px); }
+
+.nav a {
+  position: relative;
+  transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+}
+.nav a:hover { transform: translateY(-1px); }
+
+.btn {
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn-primary {
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.25);
+}
+.btn-primary:hover {
+  box-shadow: 0 8px 28px rgba(0, 166, 81, 0.4);
+}
+
+.hero {
+  background:
+    radial-gradient(ellipse 80% 60% at 85% 30%, rgba(0, 166, 81, 0.2), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(0, 100, 60, 0.15), transparent 50%),
+    linear-gradient(160deg, #1A1A2E 0%, #12121F 50%, #0a1612 100%);
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 20%, transparent 75%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.hero .badge {
+  backdrop-filter: blur(8px);
+}
+.hero h1 {
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.3);
+}
+
+.info-card {
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%, rgba(0, 166, 81, 0.18), transparent 50%),
+    linear-gradient(160deg, #1A1A2E, #12121F);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+}
+.card-img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover .card-img img {
+  transform: scale(1.06);
+}
+
+.section-label {
+  letter-spacing: 0.1em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+
+.checks li {
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.checks li:hover {
+  transform: translateX(4px);
+  color: var(--green-dark, #008C44);
+}
+
+.footer {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0, 166, 81, 0.08), transparent 60%),
+    #1A1A2E;
+}
+
+.promo-banner {
+  animation: promoSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes promoSlide {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

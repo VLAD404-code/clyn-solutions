@@ -6,9 +6,10 @@
 <title>Products | C-LYN SOLUTIONS LIMITED</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="mobile.css">
 <link rel="stylesheet" href="logo-styles.css">
 <link rel="stylesheet" href="hero-bg.css">
+<link rel="stylesheet" href="mobile.css">
+<link rel="stylesheet" href="polish.css">
 </head>
 <body>
 <div id="promoBanner" class="promo-banner" style="display:none"></div>
@@ -16,6 +17,7 @@
   <div class="container header-inner">
     <a href="index.html" class="logo">
       <img class="logo-img" id="siteLogo" alt="C-LYN" width="40" height="40">
+      <span class="logo-mark" aria-hidden="true">C</span>
       <span class="logo-text"><strong>C-LYN</strong><small>SOLUTIONS LIMITED</small></span>
     </a>
     <nav class="nav" id="nav">
@@ -24,8 +26,10 @@
       <a href="products.html" class="active">Products</a>
       <a href="index.html#contact">Contact</a>
     </nav>
-    <a class="btn btn-wa" id="headerWa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="btn btn-wa" id="headerWa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    </div>
   </div>
 </header>
 <section class="page-hero page-hero-bg">
@@ -37,8 +41,8 @@
 </section>
 <section class="section">
   <div class="container">
-    <div class="filters" id="filters"></div>
-    <div class="search-bar">
+    <div class="filters reveal" id="filters"></div>
+    <div class="search-bar reveal reveal-delay-1">
       <input type="search" class="search" id="search" placeholder="Search parts…" autocomplete="off">
     </div>
     <p class="results-meta" id="resultsMeta"></p>
@@ -56,14 +60,13 @@
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
       <a href="index.html#contact">Contact</a>
-      <a href="admin.html">Admin</a>
     </div>
     <p class="copy">© 2026 C-LYN SOLUTIONS LIMITED. All rights reserved.</p>
   </div>
 </footer>
-<script src="img/logo.js"></script>
-<script src="branding.js"></script>
 <script src="data.js"></script>
+<script src="cloud-sync.js"></script>
+<script src="branding.js"></script>
 <script src="site-features.js"></script>
 <script src="script.js"></script>
 </body>
