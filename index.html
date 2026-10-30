@@ -13,66 +13,107 @@
 </head>
 <body>
 <div id="promoBanner" class="promo-banner" style="display:none"></div>
-<header class="site-header">
+
+<header class="header" id="header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
       <img class="logo-img" id="siteLogo" alt="C-LYN" width="40" height="40">
+      <span class="logo-mark" aria-hidden="true">C</span>
       <span class="logo-text"><strong>C-LYN</strong><small>SOLUTIONS LIMITED</small></span>
     </a>
-    <nav class="nav" id="mainNav">
+    <nav class="nav" id="nav">
       <a href="index.html" class="active">Home</a>
       <a href="#about">About</a>
       <a href="products.html">Products</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="header-actions">
-      <a class="btn btn-primary btn-sm" id="headerWa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
-      <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <div class="header-actions" style="display:flex;align-items:center;gap:10px">
+      <a class="btn btn-wa" id="headerWa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
     </div>
   </div>
 </header>
+
 <section class="hero hero-bg">
   <div class="container">
-    <span class="hero-badge">Kitwe, Zambia · Mining &amp; Automotive Parts</span>
-    <h1>Your Solution,<br><span class="accent">Is Our Resolution</span></h1>
-    <p class="hero-lead">Specialists in Mining &amp; Automotive Truck Parts, Heavy Duty Equipment, Electrical Spares and General Trading.</p>
-    <div class="actions">
+    <span class="badge">Kitwe, Zambia · Mining &amp; Automotive Parts</span>
+    <h1>Your Solution,<br><span style="color:var(--green)">Is Our Resolution</span></h1>
+    <p>Specialists in Mining &amp; Automotive Truck Parts, Heavy Duty Equipment, Electrical Spares and General Trading.</p>
+    <div class="actions" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px">
       <a class="btn btn-primary" href="products.html">Browse products</a>
       <a class="btn btn-outline" href="https://wa.me/260965018323" target="_blank" rel="noopener">Get a quote</a>
     </div>
   </div>
 </section>
+
 <section class="section" id="about">
-  <div class="container">
-    <p class="eyebrow">ABOUT US</p>
-    <h2>C-LYN SOLUTIONS</h2>
-    <p id="aboutText">When a machine stops, work stops. C-LYN SOLUTIONS keeps mining and truck fleets moving with quality spare parts and fast response in Kitwe.</p>
-  </div>
-</section>
-<section class="section section-alt" id="categories">
-  <div class="container">
-    <p class="eyebrow">CATALOGUE</p>
-    <h2>Shop by category</h2>
-    <div class="cat-grid" id="categoryGrid"></div>
-  </div>
-</section>
-<section class="section" id="contact">
-  <div class="container">
-    <p class="eyebrow">CONTACT</p>
-    <h2>Get in touch</h2>
-    <div class="contact-grid">
-      <div><strong>Phone</strong><p id="contactPhone">+260 965 018 323</p></div>
-      <div><strong>Email</strong><p id="contactEmail">clynsolutions@gmail.com</p></div>
-      <div><strong>Address</strong><p id="contactAddress">Shop No. 1 Tattrin Building, Freetown Road, Kitwe</p></div>
-      <div><strong>Hours</strong><p id="contactHours">Mon–Fri: 07:00 – 17:00 · Sat: 08:00 – 13:00</p></div>
+  <div class="container about-grid">
+    <div>
+      <p class="section-label">ABOUT US</p>
+      <h2>C-LYN SOLUTIONS LIMITED</h2>
+      <p id="aboutText">We understand the demands of the mining and transport industries. Downtime costs money. That's why we stock a wide range of quality parts — from common consumables to hard-to-find components — and back them with knowledgeable service.</p>
+      <ul class="checks">
+        <li>Mining &amp; truck focused</li>
+        <li>Competitive pricing</li>
+        <li>Local Kitwe supply</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>Visit the shop</h3>
+      <p id="contactAddress">Shop No. 1 Tattrin Building<br>Opposite Ontario Shopping Complex<br>Freetown Road, Kitwe</p>
+      <p id="contactHours"><strong>Mon–Fri:</strong> 07:00 – 17:00<br><strong>Saturday:</strong> 08:00 – 17:00<br><strong>Sunday:</strong> Closed</p>
+      <a class="btn btn-primary" href="tel:+260965018323">Call +260 965 018 323</a>
     </div>
   </div>
 </section>
-<footer class="site-footer">
+
+<section class="section alt" id="featured">
   <div class="container">
-    <p>© C-LYN SOLUTIONS LIMITED · Kitwe, Zambia</p>
+    <div class="section-head">
+      <div>
+        <p class="section-label">FEATURED</p>
+        <h2>Parts in demand</h2>
+        <p class="section-sub">A selection of parts we supply. Browse the full catalogue for more.</p>
+      </div>
+      <a class="btn btn-ghost" href="products.html">View all products</a>
+    </div>
+    <div class="grid" id="featuredGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container contact-grid">
+    <div>
+      <p class="section-label">GET IN TOUCH</p>
+      <h2>Contact C-LYN SOLUTIONS</h2>
+      <p>Send us your enquiry or call us directly. We respond quickly during business hours.</p>
+      <div class="contact-list">
+        <p><strong>Phone:</strong> <a href="tel:+260965018323" id="contactPhone">+260 965 018 323</a></p>
+        <p><strong>Email:</strong> <a href="mailto:clynsolutions@gmail.com" id="contactEmail">clynsolutions@gmail.com</a></p>
+        <p><strong>Location:</strong> <span id="contactLocation">Freetown Road, Kitwe, Zambia</span></p>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/260965018323" target="_blank" rel="noopener">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>C-LYN SOLUTIONS LIMITED</strong>
+      <span>Mining &amp; automotive parts · Kitwe, Zambia</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html">Admin</a>
+    </div>
+    <p class="copy">© C-LYN SOLUTIONS LIMITED. All rights reserved.</p>
   </div>
 </footer>
+
 <script src="data.js"></script>
 <script src="cloud-sync.js"></script>
 <script src="branding.js"></script>

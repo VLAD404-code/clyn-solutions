@@ -1,23 +1,43 @@
 /**
- * Cloud sync — load shared data for all visitors; push on admin save
+ * Cloud sync — shared data for all visitors; never wipe good local data with empty cloud arrays
  */
 (function () {
   var API = '/api/data';
   var ADMIN_PASS = 'clyn2026';
   var _cloudReady = null;
-  var _lastCloud = null;
+
+  function hasItems(arr) {
+    return Array.isArray(arr) && arr.length > 0;
+  }
 
   function applyCloud(data) {
     if (!data || data.empty) return false;
     try {
-      if (data.products) localStorage.setItem('clyn_products', JSON.stringify(data.products));
-      if (data.categories) localStorage.setItem('clyn_categories', JSON.stringify(data.categories));
-      if (data.settings) localStorage.setItem('clyn_settings', JSON.stringify(data.settings));
-      if (data.promotions) localStorage.setItem('clyn_promotions', JSON.stringify(data.promotions));
-      if (data.users) localStorage.setItem('clyn_users', JSON.stringify(data.users));
-      if (data.logs) localStorage.setItem('clyn_logs', JSON.stringify(data.logs));
-      if (data.analytics) localStorage.setItem('clyn_analytics', JSON.stringify(data.analytics));
-      _lastCloud = data;
+      // Only overwrite a store if cloud has real content (avoid wiping catalogue with [])
+      if (hasItems(data.products)) {
+        localStorage.setItem('clyn_products', JSON.stringify(data.products));
+      }
+      if (hasItems(data.categories)) {
+        localStorage.setItem('clyn_categories', JSON.stringify(data.categories));
+      }
+      if (data.settings && typeof data.settings === 'object' && Object.keys(data.settings).length) {
+        var cur = {};
+        try { cur = JSON.parse(localStorage.getItem('clyn_settings') || '{}'); } catch (e) {}
+        localStorage.setItem('clyn_settings', JSON.stringify(Object.assign({}, cur, data.settings)));
+      }
+      if (hasItems(data.promotions) || (data.settings && data.settings.promoEnabled === false)) {
+        localStorage.setItem('clyn_promotions', JSON.stringify(data.promotions || []));
+      }
+      if (hasItems(data.users)) {
+        localStorage.setItem('clyn_users', JSON.stringify(data.users));
+      }
+      if (hasItems(data.logs)) {
+        localStorage.setItem('clyn_logs', JSON.stringify(data.logs));
+      }
+      if (data.analytics && (data.analytics.totalViews || 0) > 0) {
+        localStorage.setItem('clyn_analytics', JSON.stringify(data.analytics));
+      }
+      window.dispatchEvent(new CustomEvent('clyn-cloud-ready', { detail: data }));
       return true;
     } catch (e) {
       console.warn('cloud apply failed', e);
@@ -31,7 +51,6 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         applyCloud(data);
-        window.dispatchEvent(new CustomEvent('clyn-cloud-ready', { detail: data }));
         return data;
       })
       .catch(function (e) {
@@ -57,10 +76,11 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
-    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); });
+    }).then(function (r) {
+      return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; });
+    });
   }
 
-  /** Hook saves so every admin save also publishes to cloud */
   function hookSaves() {
     if (typeof ClynData === 'undefined') return;
     ['saveProducts', 'saveCategories', 'saveSettings', 'savePromotions', 'saveUsers'].forEach(function (fn) {
@@ -69,30 +89,28 @@
       ClynData[fn] = function (arg) {
         orig(arg);
         publishAll().then(function (res) {
+          var el = document.getElementById('cloudStatus');
           if (res && res.ok) {
             console.log('Cloud published');
-            var el = document.getElementById('cloudStatus');
             if (el) { el.textContent = 'Live ✓ Saved for all visitors'; el.style.color = '#00A651'; }
           } else {
             console.warn('Cloud publish failed', res);
-            var el2 = document.getElementById('cloudStatus');
-            if (el2) { el2.textContent = 'Saved on this device only — cloud not ready'; el2.style.color = '#b45309'; }
+            if (el) { el.textContent = 'Saved on this device — cloud issue'; el.style.color = '#b45309'; }
           }
-        }).catch(function (e) {
-          console.warn(e);
-        });
+        }).catch(function (e) { console.warn(e); });
       };
     });
   }
 
   window.ClynCloud = { load: loadCloud, publish: publishAll, apply: applyCloud };
 
-  // Public site: load cloud first
   loadCloud().then(function () {
     hookSaves();
+    // Re-render featured products after cloud merge
+    if (typeof window.renderFeatured === 'function') window.renderFeatured();
+    else if (typeof initHome === 'function') initHome();
   });
 
-  // Admin: also hook after a short delay in case ClynData loads later
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { setTimeout(hookSaves, 300); });
   } else {

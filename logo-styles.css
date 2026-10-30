@@ -3,36 +3,40 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: inherit;
+  color: #fff;
 }
 .logo-img,
 #siteLogo {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   border-radius: 8px;
   display: none;
   flex-shrink: 0;
-  background: transparent;
+  background: #fff;
+  padding: 2px;
 }
 .logo-img.has-logo,
 #siteLogo.has-logo {
   display: block !important;
 }
 .logo-mark {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: #00A651;
-  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #00A651;
+  background: rgba(0, 166, 81, 0.12);
+  color: #00A651;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1rem;
   flex-shrink: 0;
   line-height: 1;
-  font-family: Inter, Arial, sans-serif;
+}
+.logo.has-logo-img .logo-mark {
+  display: none;
 }
 .logo-text {
   display: flex;
@@ -40,17 +44,16 @@
   line-height: 1.15;
 }
 .logo-text strong {
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: #fff;
 }
 .logo-text small {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 #adminLogo,
 .login-logo-img {
@@ -67,24 +70,7 @@
 .login-logo-img.has-logo {
   display: block !important;
 }
-.login-logo .logo-mark {
-  width: 64px;
-  height: 64px;
-  font-size: 1.6rem;
-  margin: 0 auto 8px;
-  border-radius: 14px;
-}
 @media (max-width: 860px) {
-  .logo-img,
-  #siteLogo {
-    width: 38px;
-    height: 38px;
-  }
-  .logo-mark {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-  }
   .logo-text small {
     display: none;
   }
