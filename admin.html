@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="admin.css">
 <link rel="stylesheet" href="logo-styles.css">
+<link rel="stylesheet" href="admin-dark.css">
 </head>
 <body>
 <div class="login-page" id="loginScreen">
@@ -31,6 +32,7 @@
     </div>
     <div class="topbar-actions">
       <a class="btn btn-ghost btn-sm" href="index.html" target="_blank">View website</a>
+      <button type="button" class="theme-toggle" id="themeToggle" title="Toggle dark mode">Dark</button>
       <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
     </div>
   </header>
@@ -197,5 +199,22 @@
 <script src="data.js"></script>
 <script src="admin-app.js"></script>
 <script src="admin-save.js"></script>
+<script>
+(function(){
+  var KEY='clyn_admin_theme';
+  function apply(dark){
+    document.body.classList.toggle('admin-dark', dark);
+    var t=document.getElementById('themeToggle');
+    if(t) t.textContent=dark?'Light':'Dark';
+    try{localStorage.setItem(KEY,dark?'dark':'light');}catch(e){}
+  }
+  try{if(localStorage.getItem(KEY)==='dark')apply(true);}catch(e){}
+  document.addEventListener('click',function(e){
+    if(e.target&&e.target.id==='themeToggle'){
+      apply(!document.body.classList.contains('admin-dark'));
+    }
+  });
+})();
+</script>
 </body>
 </html>
