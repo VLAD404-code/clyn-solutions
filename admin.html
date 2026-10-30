@@ -87,7 +87,6 @@
       <div class="panel-pad">
         <h2>Website settings</h2>
         <h3>Hero background image</h3>
-        <p class="muted">Upload a new hero image for the homepage.</p>
         <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:16px">
           <img id="heroPreview" class="preview" alt="Hero" style="max-width:280px;max-height:160px;border-radius:10px">
           <div>
@@ -166,10 +165,10 @@
     <h3 id="promoModalTitle">Add promotion</h3>
     <input type="hidden" id="editPromoId">
     <label>Title *</label><input type="text" id="prTitle" placeholder="e.g. Special Offer">
-    <label>Message</label><textarea id="prMessage" rows="2" placeholder="Short banner text"></textarea>
+    <label>Message</label><textarea id="prMessage" rows="2"></textarea>
     <div class="grid2">
-      <div><label>Discount % *</label><input type="number" id="prPercent" min="0" max="100" placeholder="e.g. 20"></div>
-      <div><label>Category (optional)</label><select id="prCategory"><option value="">All / general</option></select></div>
+      <div><label>Discount %</label><input type="number" id="prPercent" min="0" max="100" placeholder="e.g. 20"></div>
+      <div><label>Category</label><select id="prCategory"><option value="">All / general</option></select></div>
     </div>
     <label>Ends on (optional)</label>
     <input type="date" id="prEndDate">
@@ -177,7 +176,7 @@
     <input type="text" id="prDuration" placeholder="e.g. This week only">
     <label>Promo image (optional)</label><input type="file" id="prImage" accept="image/*">
     <img id="prPreview" class="preview" alt="">
-    <label class="check-row"><input type="checkbox" id="prActive" checked> Active (show on website)</label>
+    <label class="check-row"><input type="checkbox" id="prActive" checked> Active</label>
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelPromo">Cancel</button><button class="btn btn-primary" id="savePromo">Save</button></div>
   </div>
 </div>
@@ -187,16 +186,16 @@
     <input type="hidden" id="editUserId">
     <label>Name *</label><input type="text" id="uName">
     <label>Username *</label><input type="text" id="uUsername">
-    <label>Password</label><input type="password" id="uPassword" placeholder="Leave blank to keep current">
+    <label>Password</label><input type="password" id="uPassword">
     <label>Role</label><select id="uRole"><option value="admin">Admin</option><option value="owner">Owner</option></select>
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelUser">Cancel</button><button class="btn btn-primary" id="saveUser">Save</button></div>
   </div>
 </div>
-<script src="img/logo.js"></script>
 <script src="branding.js"></script>
 <script src="data.js"></script>
 <script src="admin-app.js"></script>
 <script src="admin-save.js"></script>
+<script src="admin-promo-fields.js"></script>
 <script>
 (function(){
   var KEY='clyn_admin_theme';
