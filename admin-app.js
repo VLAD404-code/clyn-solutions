@@ -1,7 +1,7 @@
 (function(){
 const AUTH='clyn_admin_session';
 let products=[],categories=[],promotions=[],users=[],settings={};
-let imageData='',catImageData='',heroImageData='',currentUser=null;
+let imageData='',catImageData='',heroImageData='',promoImageData='',currentUser=null;
 const $=id=>document.getElementById(id);
 const show=(el,on)=>el&&el.classList.toggle('hidden',!on);
 const who=()=>(currentUser&&(currentUser.name||currentUser.username))||'Admin';
@@ -39,7 +39,12 @@ function renderCats(){
 function renderPromos(){
   const el=$('promoRows');if(!el)return;
   if($('promoMasterToggle'))$('promoMasterToggle').checked=settings.promoEnabled!==false;
-  el.innerHTML=promotions.map(p=>`<tr><td><strong>${esc(p.title)}</strong><br><small style="color:#6B7280">${esc(p.message||'')}</small></td><td>${p.active?'<span class="badge">Active</span>':'Off'}</td><td class="actions-cell"><button class="btn btn-ghost btn-sm" data-editpromo="${p.id}">Edit</button><button class="btn btn-danger btn-sm" data-delpromo="${p.id}">Delete</button></td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:#6B7280;padding:24px">No promotions yet.</td></tr>';
+  el.innerHTML=promotions.map(p=>{
+    const pct=p.percent?('<span class="badge-off">'+p.percent+'% OFF</span> '):'';
+    const cat=p.category?esc(catName(p.category)):'General';
+    const img=p.image?'<img class="thumb" src="'+p.image+'" alt="">':'—';
+    return `<tr><td>${img}</td><td><strong>${esc(p.title)}</strong> ${pct}<br><small style="color:#6B7280">${esc(p.message||'')} · ${cat}</small></td><td>${p.active?'<span class="badge">Active</span>':'Off'}</td><td class="actions-cell"><button class="btn btn-ghost btn-sm" data-editpromo="${p.id}">Edit</button><button class="btn btn-danger btn-sm" data-delpromo="${p.id}">Delete</button></td></tr>`;
+  }).join('')||'<tr><td colspan="4" style="text-align:center;color:#6B7280;padding:24px">No promotions yet.</td></tr>';
 }
 function renderUsers(){
   const el=$('userRows');if(!el)return;
@@ -111,16 +116,27 @@ function saveCategory(){
 }
 function openPromo(p){
   $('promoModalTitle').textContent=p?'Edit promotion':'Add promotion';
-  $('editPromoId').value=p?p.id:'';$('prTitle').value=p?p.title:'';$('prMessage').value=p?(p.message||''):'';$('prActive').checked=p?!!p.active:true;
+  $('editPromoId').value=p?p.id:'';
+  $('prTitle').value=p?p.title:'';
+  $('prMessage').value=p?(p.message||''):'';
+  if($('prPercent'))$('prPercent').value=p&&p.percent!=null?p.percent:'';
+  promoImageData=p&&p.image?p.image:'';
+  var prev=$('prPreview');
+  if(prev){if(promoImageData){prev.src=promoImageData;prev.classList.add('show');}else{prev.removeAttribute('src');prev.classList.remove('show');}}
+  if($('prCategory')){
+    $('prCategory').innerHTML='<option value="">All / general</option>'+categories.map(function(c){return '<option value="'+esc(c.id)+'"'+(p&&p.category===c.id?' selected':'')+'>'+esc(c.name)+'</option>';}).join('');
+  }
+  $('prActive').checked=p?!!p.active:true;
   show($('promoModal'),true);
 }
 function closePromo(){show($('promoModal'),false);}
 function savePromo(){
   const title=$('prTitle').value.trim();if(!title){alert('Title required');return;}
+  const pct=parseInt(($('prPercent')&&$('prPercent').value)||'0',10)||0;
   const id=$('editPromoId').value||('pr'+Date.now());
-  const item={id,title,message:$('prMessage').value.trim(),active:$('prActive').checked};
+  const item={id,title,message:$('prMessage').value.trim(),percent:pct,category:($('prCategory')&&$('prCategory').value)||'',image:promoImageData||'',active:$('prActive').checked};
   const idx=promotions.findIndex(x=>x.id===id);
-  if(idx>=0){promotions[idx]=item;log('edit_promo',title);}else{promotions.unshift(item);log('add_promo',title);}
+  if(idx>=0){promotions[idx]=item;log('edit_promo',title+' '+pct+'%');}else{promotions.unshift(item);log('add_promo',title+' '+pct+'%');}
   persistPromos();renderAll();closePromo();
 }
 function openUser(u){
@@ -182,6 +198,7 @@ $('catRows').onclick=e=>{
   if(del&&confirm('Delete category?')){const c=categories.find(x=>x.id===del.dataset.delcat);categories=categories.filter(x=>x.id!==del.dataset.delcat);log('delete_category',c?c.name:'');persistCats();renderAll();}
 };
 $('categoryModal').onclick=e=>{if(e.target===$('categoryModal'))closeCategory();};
+if($('prImage'))$('prImage').onchange=e=>{const f=e.target.files[0];if(!f)return;resizeImage(f,900,d=>{promoImageData=d;const p=$('prPreview');if(p){p.src=d;p.classList.add('show');}});};
 if($('addPromoBtn')){
   $('addPromoBtn').onclick=()=>openPromo(null);$('cancelPromo').onclick=closePromo;$('savePromo').onclick=savePromo;
   $('promoModal').onclick=e=>{if(e.target===$('promoModal'))closePromo();};
@@ -210,6 +227,9 @@ if($('saveSettingsBtn'))$('saveSettingsBtn').onclick=()=>{
 };
 if($('clearLogsBtn'))$('clearLogsBtn').onclick=()=>{if(confirm('Clear audit log?')){ClynData.clearLogs();renderLogs();}};
 if($('clearAnalyticsBtn'))$('clearAnalyticsBtn').onclick=()=>{if(confirm('Reset analytics?')){ClynData.clearAnalytics();renderLogs();renderStats();}};
+if($('saveProductsBtn'))$('saveProductsBtn').onclick=()=>{persistProducts();log('save_products','Confirmed');const el=$('saveMsgProducts');if(el){el.textContent='Saved \u2713';el.style.color='#00A651';setTimeout(()=>el.textContent='',2500);}};
+if($('saveCatsBtn'))$('saveCatsBtn').onclick=()=>{persistCats();log('save_categories','Confirmed');const el=$('saveMsgCats');if(el){el.textContent='Saved \u2713';el.style.color='#00A651';setTimeout(()=>el.textContent='',2500);}};
+if($('savePromosBtn'))$('savePromosBtn').onclick=()=>{persistPromos();persistSettings();log('save_promotions','Confirmed');const el=$('saveMsgPromos');if(el){el.textContent='Saved \u2713';el.style.color='#00A651';setTimeout(()=>el.textContent='',2500);}};
 $('exportBtn').onclick=()=>{const data=ClynData.exportAll();const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clyn-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();log('export_backup','JSON');};
 $('importFile').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{ClynData.importAll(JSON.parse(ev.target.result));load();renderAll();log('import_backup',file.name);alert('Imported.');}catch(err){alert('Invalid file.');}};r.readAsText(file);e.target.value='';};
 $('resetBtn').onclick=()=>{if(confirm('Reset products, categories, settings, promotions?')){ClynData.resetAll();log('reset_data','defaults');load();renderAll();}};
