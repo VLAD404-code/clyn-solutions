@@ -7,11 +7,10 @@
       });
       document.querySelectorAll('.logo-mark').forEach(function(el){ el.style.display='none'; });
     }
-    if(ClynImages.heroParts && ClynImages.heroParts.length>100){
-      document.querySelectorAll('.hero-bg').forEach(function(el){
-        el.style.backgroundImage="url('"+ClynImages.heroParts+"')";
-      });
-    }
+    var heroUrl = ClynImages.heroParts || 'images/hero-parts.jpg';
+    document.querySelectorAll('.hero-bg').forEach(function(el){
+      el.style.backgroundImage="url('"+heroUrl+"')";
+    });
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', apply);
   else apply();
