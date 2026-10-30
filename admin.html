@@ -48,19 +48,40 @@
       <button class="tab" data-tab="promotions">Promotions</button>
       <button class="tab" data-tab="settings">Settings</button>
       <button class="tab" data-tab="users">Users</button>
-      <button class="tab" data-tab="logs">Logs &amp; Analytics</button>
+      <button class="tab" data-tab="logs">Logs & Analytics</button>
       <button class="tab" data-tab="backup">Backup</button>
     </div>
     <div class="panel" id="tab-products">
-      <div class="panel-head"><h2>Product catalogue</h2><button class="btn btn-primary btn-sm" id="addProductBtn">+ Add product</button></div>
+      <div class="panel-head">
+        <h2>Product catalogue</h2>
+        <div class="panel-head-actions">
+          <span class="save-msg" id="saveMsgProducts"></span>
+          <button class="btn btn-ghost btn-sm" id="saveProductsBtn">Save</button>
+          <button class="btn btn-primary btn-sm" id="addProductBtn">+ Add product</button>
+        </div>
+      </div>
       <div class="table-wrap"><table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Featured</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
     </div>
     <div class="panel hidden" id="tab-categories">
-      <div class="panel-head"><h2>Categories</h2><button class="btn btn-primary btn-sm" id="addCatBtn">+ Add category</button></div>
+      <div class="panel-head">
+        <h2>Categories</h2>
+        <div class="panel-head-actions">
+          <span class="save-msg" id="saveMsgCats"></span>
+          <button class="btn btn-ghost btn-sm" id="saveCatsBtn">Save</button>
+          <button class="btn btn-primary btn-sm" id="addCatBtn">+ Add category</button>
+        </div>
+      </div>
       <div class="table-wrap"><table><thead><tr><th>Photo</th><th>Name</th><th>ID</th><th>Actions</th></tr></thead><tbody id="catRows"></tbody></table></div>
     </div>
     <div class="panel hidden" id="tab-promotions">
-      <div class="panel-head"><h2>Promotions banner</h2><button class="btn btn-primary btn-sm" id="addPromoBtn">+ Add promotion</button></div>
+      <div class="panel-head">
+        <h2>Promotions banner</h2>
+        <div class="panel-head-actions">
+          <span class="save-msg" id="saveMsgPromos"></span>
+          <button class="btn btn-ghost btn-sm" id="savePromosBtn">Save</button>
+          <button class="btn btn-primary btn-sm" id="addPromoBtn">+ Add promotion</button>
+        </div>
+      </div>
       <div class="panel-pad" style="border-bottom:1px solid var(--border)">
         <label class="check-row" style="margin:0"><input type="checkbox" id="promoMasterToggle"> <strong>Show promotions on website</strong></label>
       </div>
@@ -78,7 +99,7 @@
             <button type="button" class="btn btn-ghost btn-sm" id="clearHeroBtn">Use default image</button>
           </div>
         </div>
-        <h3 style="font-size:.9rem;margin:20px 0 10px;color:var(--muted)">Contact &amp; about</h3>
+        <h3 style="font-size:.9rem;margin:20px 0 10px;color:var(--muted)">Contact & about</h3>
         <div class="grid2"><div><label>Phone</label><input type="text" id="sPhone"></div><div><label>WhatsApp</label><input type="text" id="sWhatsapp"></div></div>
         <label>Email</label><input type="email" id="sEmail">
         <label>Address</label><input type="text" id="sAddress">
@@ -99,7 +120,7 @@
     <div class="panel hidden" id="tab-logs">
       <div class="panel-pad">
         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
-          <h2 style="font-size:1.05rem;margin:0">Logs &amp; Analytics</h2>
+          <h2 style="font-size:1.05rem;margin:0">Logs & Analytics</h2>
           <div style="display:flex;gap:8px">
             <button class="btn btn-ghost btn-sm" id="clearLogsBtn">Clear audit log</button>
             <button class="btn btn-ghost btn-sm" id="clearAnalyticsBtn">Reset analytics</button>
@@ -120,7 +141,7 @@
     </div>
     <div class="panel hidden" id="tab-backup">
       <div class="panel-pad">
-        <h2 style="font-size:1.05rem;margin-bottom:8px">Backup &amp; restore</h2>
+        <h2 style="font-size:1.05rem;margin-bottom:8px">Backup & restore</h2>
         <p class="muted">Download a backup regularly.</p>
         <div class="backup-actions">
           <button class="btn btn-primary btn-sm" id="exportBtn">Download backup (JSON)</button>
