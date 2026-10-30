@@ -45,7 +45,13 @@ const ClynData = {
     return this._ready;
   },
   getCategories() {
-    try { const r = localStorage.getItem(this.STORAGE_CATEGORIES); if (r) return JSON.parse(r); } catch (e) {}
+    try {
+      const r = localStorage.getItem(this.STORAGE_CATEGORIES);
+      if (r) {
+        const s = JSON.parse(r);
+        if (Array.isArray(s) && s.length > 0) return s;
+      }
+    } catch (e) {}
     return JSON.parse(JSON.stringify(this._cats.length ? this._cats : this.defaultCategories));
   },
   saveCategories(l) { localStorage.setItem(this.STORAGE_CATEGORIES, JSON.stringify(l)); },
@@ -54,8 +60,10 @@ const ClynData = {
       const r = localStorage.getItem(this.STORAGE_PRODUCTS);
       if (r) {
         const s = JSON.parse(r);
-        if (s.length < 50 && this._products.length > 50) return JSON.parse(JSON.stringify(this._products));
-        return s;
+        if (Array.isArray(s) && s.length > 0) {
+          if (s.length < 50 && this._products.length > 50) return JSON.parse(JSON.stringify(this._products));
+          return s;
+        }
       }
     } catch (e) {}
     return JSON.parse(JSON.stringify(this._products.length ? this._products : this.defaultProducts));
