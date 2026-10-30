@@ -1,0 +1,8 @@
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo-img,#siteLogo{width:44px;height:44px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;background:#fff;padding:2px}
+.logo-mark{width:40px;height:40px;border-radius:8px;background:#00A651;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column;line-height:1.15}
+.logo-text strong{font-size:1.05rem;font-weight:800;letter-spacing:-0.02em;color:#fff}
+.logo-text small{font-size:.65rem;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.75);text-transform:uppercase}
+#adminLogo,.login-logo-img{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;padding:4px}
+@media(max-width:860px){.logo-img,#siteLogo{width:38px;height:38px}.logo-text small{display:none}}
