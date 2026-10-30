@@ -13,14 +13,14 @@
   <div class="login-card">
     <div class="login-logo"><img class="login-logo-img" id="adminLogo" alt="C-LYN" width="72" height="72"></div>
     <h1>C-LYN SOLUTIONS</h1>
-    <p class="sub">Admin Back Office · Secure access</p>
+    <p class="sub">Admin Back Office</p>
     <div class="login-err" id="loginErr"></div>
     <label for="loginUser">Username</label>
     <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
     <label for="pwd">Password</label>
     <input type="password" id="pwd" placeholder="Enter password" autocomplete="current-password">
     <button class="btn btn-primary btn-block" id="loginBtn">Sign in</button>
-    <p class="login-hint">Authorized staff only · <a href="index.html">← Back to website</a></p>
+    <p class="login-hint"><a href="index.html">← Back to website</a></p>
   </div>
 </div>
 <div class="hidden" id="app">
@@ -52,45 +52,39 @@
       <button class="tab" data-tab="backup">Backup</button>
     </div>
     <div class="panel" id="tab-products">
-      <div class="panel-head">
-        <h2>Product catalogue</h2>
+      <div class="panel-head"><h2>Product catalogue</h2>
         <div class="panel-head-actions">
           <span class="save-msg" id="saveMsgProducts"></span>
           <button class="btn btn-ghost btn-sm" id="saveProductsBtn">Save</button>
           <button class="btn btn-primary btn-sm" id="addProductBtn">+ Add product</button>
-        </div>
-      </div>
+        </div></div>
       <div class="table-wrap"><table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Featured</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
     </div>
     <div class="panel hidden" id="tab-categories">
-      <div class="panel-head">
-        <h2>Categories</h2>
+      <div class="panel-head"><h2>Categories</h2>
         <div class="panel-head-actions">
           <span class="save-msg" id="saveMsgCats"></span>
           <button class="btn btn-ghost btn-sm" id="saveCatsBtn">Save</button>
           <button class="btn btn-primary btn-sm" id="addCatBtn">+ Add category</button>
-        </div>
-      </div>
+        </div></div>
       <div class="table-wrap"><table><thead><tr><th>Photo</th><th>Name</th><th>ID</th><th>Actions</th></tr></thead><tbody id="catRows"></tbody></table></div>
     </div>
     <div class="panel hidden" id="tab-promotions">
-      <div class="panel-head">
-        <h2>Promotions banner</h2>
+      <div class="panel-head"><h2>Promotions banner</h2>
         <div class="panel-head-actions">
           <span class="save-msg" id="saveMsgPromos"></span>
           <button class="btn btn-ghost btn-sm" id="savePromosBtn">Save</button>
           <button class="btn btn-primary btn-sm" id="addPromoBtn">+ Add promotion</button>
-        </div>
+        </div></div>
+      <div class="panel-pad" style="border-bottom:1px solid var(--border);max-width:none">
+        <label class="check-row" style="margin:0;display:flex;align-items:center;gap:8px"><input type="checkbox" id="promoMasterToggle"> <strong>Show promotions on website</strong></label>
       </div>
-      <div class="panel-pad" style="border-bottom:1px solid var(--border)">
-        <label class="check-row" style="margin:0"><input type="checkbox" id="promoMasterToggle"> <strong>Show promotions on website</strong></label>
-      </div>
-      <div class="table-wrap"><table><thead><tr><th>Promotion</th><th>Status</th><th>Actions</th></tr></thead><tbody id="promoRows"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>Image</th><th>Promotion</th><th>Status</th><th>Actions</th></tr></thead><tbody id="promoRows"></tbody></table></div>
     </div>
     <div class="panel hidden" id="tab-settings">
       <div class="panel-pad">
-        <h2 style="font-size:1.05rem;margin-bottom:16px">Website settings</h2>
-        <h3 style="font-size:.9rem;margin:20px 0 10px;color:var(--muted)">Hero background image</h3>
+        <h2>Website settings</h2>
+        <h3>Hero background image</h3>
         <p class="muted">Upload a new hero image for the homepage.</p>
         <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:16px">
           <img id="heroPreview" class="preview" alt="Hero" style="max-width:280px;max-height:160px;border-radius:10px">
@@ -99,7 +93,7 @@
             <button type="button" class="btn btn-ghost btn-sm" id="clearHeroBtn">Use default image</button>
           </div>
         </div>
-        <h3 style="font-size:.9rem;margin:20px 0 10px;color:var(--muted)">Contact &amp; about</h3>
+        <h3>Contact &amp; about</h3>
         <div class="grid2"><div><label>Phone</label><input type="text" id="sPhone"></div><div><label>WhatsApp</label><input type="text" id="sWhatsapp"></div></div>
         <label>Email</label><input type="email" id="sEmail">
         <label>Address</label><input type="text" id="sAddress">
@@ -118,15 +112,14 @@
       <div class="table-wrap"><table><thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Actions</th></tr></thead><tbody id="userRows"></tbody></table></div>
     </div>
     <div class="panel hidden" id="tab-logs">
-      <div class="panel-pad">
+      <div class="panel-pad" style="max-width:none">
         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
-          <h2 style="font-size:1.05rem;margin:0">Logs &amp; Analytics</h2>
+          <h2 style="margin:0">Logs &amp; Analytics</h2>
           <div style="display:flex;gap:8px">
             <button class="btn btn-ghost btn-sm" id="clearLogsBtn">Clear audit log</button>
             <button class="btn btn-ghost btn-sm" id="clearAnalyticsBtn">Reset analytics</button>
           </div>
         </div>
-        <p class="muted">Page views are recorded in this browser.</p>
         <div class="stats" style="margin:16px 0">
           <div class="stat"><strong id="analyticsTotal">0</strong><span>Total views</span></div>
           <div class="stat"><strong id="analyticsPages">0</strong><span>Pages tracked</span></div>
@@ -138,7 +131,7 @@
     </div>
     <div class="panel hidden" id="tab-backup">
       <div class="panel-pad">
-        <h2 style="font-size:1.05rem;margin-bottom:8px">Backup &amp; restore</h2>
+        <h2>Backup &amp; restore</h2>
         <div class="backup-actions">
           <button class="btn btn-primary btn-sm" id="exportBtn">Download backup (JSON)</button>
           <label class="btn btn-ghost btn-sm" style="cursor:pointer">Import backup<input type="file" id="importFile" accept=".json,application/json" hidden></label>
@@ -176,9 +169,15 @@
   <div class="modal">
     <h3 id="promoModalTitle">Add promotion</h3>
     <input type="hidden" id="editPromoId">
-    <label>Title *</label><input type="text" id="prTitle">
-    <label>Message</label><textarea id="prMessage" rows="2"></textarea>
-    <label class="check-row"><input type="checkbox" id="prActive" checked> Active</label>
+    <label>Title *</label><input type="text" id="prTitle" placeholder="e.g. Special Offer">
+    <label>Message</label><textarea id="prMessage" rows="2" placeholder="Short banner text"></textarea>
+    <div class="grid2">
+      <div><label>Discount % *</label><input type="number" id="prPercent" min="0" max="100" placeholder="e.g. 20"></div>
+      <div><label>Category (optional)</label><select id="prCategory"><option value="">All / general</option></select></div>
+    </div>
+    <label>Promo image (optional)</label><input type="file" id="prImage" accept="image/*">
+    <img id="prPreview" class="preview" alt="">
+    <label class="check-row"><input type="checkbox" id="prActive" checked> Active (show on website)</label>
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelPromo">Cancel</button><button class="btn btn-primary" id="savePromo">Save</button></div>
   </div>
 </div>
