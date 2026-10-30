@@ -3,166 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin · C-LYN SOLUTIONS LIMITED</title>
+<title>Admin · C-LYN SOLUTIONS</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="admin.css">
 <link rel="stylesheet" href="logo-styles.css">
-<link rel="stylesheet" href="admin-dark.css">
 </head>
-<body>
-<div class="login-page" id="loginScreen">
+<body class="admin-body">
+<div id="loginScreen" class="login-screen">
   <div class="login-card">
-    <div class="login-logo"><img class="login-logo-img" id="adminLogo" alt="C-LYN" width="72" height="72"></div>
-    <h1>C-LYN SOLUTIONS</h1>
-    <p class="sub">Admin Back Office</p>
-    <div class="login-err" id="loginErr"></div>
-    <label for="loginUser">Username</label>
-    <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
-    <label for="pwd">Password</label>
-    <input type="password" id="pwd" placeholder="Enter password" autocomplete="current-password">
-    <button class="btn btn-primary btn-block" id="loginBtn">Sign in</button>
-    <p class="login-hint"><a href="index.html">← Back to website</a></p>
+    <img class="login-logo-img" id="loginLogo" alt="">
+    <div class="login-mark">C</div>
+    <h1>C-LYN Admin</h1>
+    <p class="login-sub">Sign in to manage the catalogue</p>
+    <label>Username</label>
+    <input type="text" id="loginUser" value="admin" autocomplete="username">
+    <label>Password</label>
+    <input type="password" id="pwd" autocomplete="current-password">
+    <p id="loginErr" class="login-err"></p>
+    <button type="button" class="btn btn-primary" id="loginBtn">Sign in</button>
   </div>
 </div>
-<div class="hidden" id="app">
-  <header class="topbar">
-    <div class="topbar-brand">
-      <div class="mark">C</div>
-      <div><h1>C-LYN Admin</h1><span id="loggedInAs">SOLUTIONS LIMITED</span><div id="cloudStatus" style="font-size:0.72rem;opacity:0.9;margin-top:2px">Cloud: ready</div></div>
+<div id="app" class="admin-app hidden">
+  <header class="admin-header">
+    <div class="admin-brand">
+      <img id="adminLogo" alt="">
+      <div>
+        <strong>C-LYN Admin</strong>
+        <span id="loggedInAs">Signed in</span>
+      </div>
     </div>
-    <div class="topbar-actions">
+    <div class="admin-header-actions">
+      <span id="cloudStatus" style="font-size:.8rem;color:#00A651"></span>
       <a class="btn btn-ghost btn-sm" href="index.html" target="_blank">View website</a>
-      <button type="button" class="theme-toggle" id="themeToggle">Dark</button>
-      <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="themeToggle">Dark</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="logoutBtn">Log out</button>
     </div>
   </header>
-  <div class="wrap">
-    <div class="stats">
-      <div class="stat"><strong id="statProducts">0</strong><span>Products</span></div>
-      <div class="stat"><strong id="statCats">0</strong><span>Categories</span></div>
-      <div class="stat"><strong id="statFeatured">0</strong><span>Featured</span></div>
-      <div class="stat"><strong id="statPromos">0</strong><span>Active promos</span></div>
-      <div class="stat"><strong id="statViews">0</strong><span>Page views</span></div>
-    </div>
-    <div class="tabs">
-      <button class="tab active" data-tab="products">Products</button>
-      <button class="tab" data-tab="categories">Categories</button>
-      <button class="tab" data-tab="promotions">Promotions</button>
-      <button class="tab" data-tab="settings">Settings</button>
-      <button class="tab" data-tab="users">Users</button>
-      <button class="tab" data-tab="logs">Logs &amp; Analytics</button>
-      <button class="tab" data-tab="backup">Backup</button>
-    </div>
-    <div class="panel" id="tab-products">
-      <div class="panel-head"><h2>Product catalogue</h2>
-        <div class="panel-head-actions">
-          <span class="save-msg" id="saveMsgProducts"></span>
-          <button class="btn btn-ghost btn-sm" id="saveProductsBtn">Save</button>
-          <button class="btn btn-primary btn-sm" id="addProductBtn">+ Add product</button>
-        </div></div>
-      <div class="table-wrap"><table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Featured</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
-    </div>
-    <div class="panel hidden" id="tab-categories">
-      <div class="panel-head"><h2>Categories</h2>
-        <div class="panel-head-actions">
-          <span class="save-msg" id="saveMsgCats"></span>
-          <button class="btn btn-ghost btn-sm" id="saveCatsBtn">Save</button>
-          <button class="btn btn-primary btn-sm" id="addCatBtn">+ Add category</button>
-        </div></div>
-      <div class="table-wrap"><table><thead><tr><th>Photo</th><th>Name</th><th>ID</th><th>Actions</th></tr></thead><tbody id="catRows"></tbody></table></div>
-    </div>
-    <div class="panel hidden" id="tab-promotions">
-      <div class="panel-head"><h2>Promotions banner</h2>
-        <div class="panel-head-actions">
-          <span class="save-msg" id="saveMsgPromos"></span>
-          <button class="btn btn-ghost btn-sm" id="savePromosBtn">Save</button>
-          <button class="btn btn-primary btn-sm" id="addPromoBtn">+ Add promotion</button>
-        </div></div>
-      <div class="panel-pad" style="border-bottom:1px solid var(--border);max-width:none">
-        <label class="check-row" style="margin:0;display:flex;align-items:center;gap:8px"><input type="checkbox" id="promoMasterToggle"> <strong>Show promotions on website</strong></label>
-      </div>
-      <div class="table-wrap"><table><thead><tr><th>Image</th><th>Promotion</th><th>Status</th><th>Actions</th></tr></thead><tbody id="promoRows"></tbody></table></div>
-    </div>
-    <div class="panel hidden" id="tab-settings">
-      <div class="panel-pad">
-        <h2>Website settings</h2>
-        <h3>Hero background image</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:16px">
-          <img id="heroPreview" class="preview" alt="Hero" style="max-width:280px;max-height:160px;border-radius:10px">
-          <div>
-            <label class="btn btn-ghost btn-sm" style="cursor:pointer">Upload hero image<input type="file" id="heroImageInput" accept="image/*" hidden></label>
-            <button type="button" class="btn btn-ghost btn-sm" id="clearHeroBtn">Use default image</button>
-          </div>
-        </div>
-        <h3>Website logo</h3>
-        <p class="muted">Upload your official logo. It shows on the site header and admin login.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:20px">
-          <img id="logoPreview" class="preview" alt="Logo" style="max-width:120px;max-height:120px;border-radius:10px;background:#f3f4f6;object-fit:contain">
-          <div>
-            <label class="btn btn-ghost btn-sm" style="cursor:pointer">Upload logo<input type="file" id="logoImageInput" accept="image/*" hidden></label>
-            <button type="button" class="btn btn-ghost btn-sm" id="clearLogoBtn">Remove logo</button>
-          </div>
-        </div>
-        <h3>Contact &amp; about</h3>
-        <div class="grid2"><div><label>Phone</label><input type="text" id="sPhone"></div><div><label>WhatsApp</label><input type="text" id="sWhatsapp"></div></div>
-        <label>Email</label><input type="email" id="sEmail">
-        <label>Address</label><input type="text" id="sAddress">
-        <label>Location</label><input type="text" id="sLocation">
-        <label>Hours</label><input type="text" id="sHours">
-        <label>Tagline</label><input type="text" id="sTagline">
-        <label>About</label><textarea id="sAbout" rows="4"></textarea>
-        <div class="modal-actions" style="justify-content:flex-start">
-          <button class="btn btn-primary" id="saveSettingsBtn">Save settings</button>
-          <span id="settingsMsg" class="muted" style="margin-left:12px"></span>
-        </div>
-      </div>
-    </div>
-    <div class="panel hidden" id="tab-users">
-      <div class="panel-head"><h2>Admin users</h2><button class="btn btn-primary btn-sm" id="addUserBtn">+ Add user</button></div>
-      <div class="table-wrap"><table><thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Actions</th></tr></thead><tbody id="userRows"></tbody></table></div>
-    </div>
-    <div class="panel hidden" id="tab-logs">
-      <div class="panel-pad" style="max-width:none">
-        <h2>Logs &amp; Analytics</h2>
-        <div class="stats" style="margin:16px 0">
-          <div class="stat"><strong id="analyticsTotal">0</strong><span>Total views</span></div>
-          <div class="stat"><strong id="analyticsPages">0</strong><span>Pages tracked</span></div>
-        </div>
-        <div class="table-wrap" style="margin-bottom:20px"><table><thead><tr><th>Page</th><th>Views</th></tr></thead><tbody id="analyticsPageRows"></tbody></table></div>
-        <div class="table-wrap" style="margin-bottom:20px"><table><thead><tr><th>When</th><th>Page</th><th>Referrer</th></tr></thead><tbody id="visitRows"></tbody></table></div>
-        <div class="table-wrap"><table><thead><tr><th>When</th><th>User</th><th>Action</th><th>Detail</th></tr></thead><tbody id="logRows"></tbody></table></div>
-      </div>
-    </div>
-    <div class="panel hidden" id="tab-backup">
-      <div class="panel-pad">
-        <h2>Backup &amp; restore</h2>
-        <div class="backup-actions">
-          <button class="btn btn-primary btn-sm" id="exportBtn">Download backup (JSON)</button>
-          <label class="btn btn-ghost btn-sm" style="cursor:pointer">Import backup<input type="file" id="importFile" accept=".json,application/json" hidden></label>
-          <button class="btn btn-danger btn-sm" id="resetBtn">Reset to defaults</button>
-        </div>
-      </div>
-    </div>
+  <div class="admin-stats">
+    <div class="stat"><strong id="statProducts">0</strong><span>Products</span></div>
+    <div class="stat"><strong id="statCats">0</strong><span>Categories</span></div>
+    <div class="stat"><strong id="statFeatured">0</strong><span>Featured</span></div>
+    <div class="stat"><strong id="statPromos">0</strong><span>Promos</span></div>
+    <div class="stat"><strong id="statViews">0</strong><span>Page views</span></div>
   </div>
+  <nav class="admin-tabs">
+    <button type="button" class="tab active" data-tab="products">Products</button>
+    <button type="button" class="tab" data-tab="categories">Categories</button>
+    <button type="button" class="tab" data-tab="promotions">Promotions</button>
+    <button type="button" class="tab" data-tab="settings">Settings</button>
+    <button type="button" class="tab" data-tab="users">Users</button>
+    <button type="button" class="tab" data-tab="logs">Logs &amp; Analytics</button>
+    <button type="button" class="tab" data-tab="backup">Backup</button>
+  </nav>
+  <main class="admin-main">
+    <section id="tab-products" class="tab-panel">
+      <div class="panel-head">
+        <h2>Product catalogue</h2>
+        <div>
+          <span id="saveMsgProducts"></span>
+          <button type="button" class="btn btn-ghost" id="saveProductsBtn">Save</button>
+          <button type="button" class="btn btn-primary" id="addProductBtn">+ Add product</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>IMAGE</th><th>NAME</th><th>CATEGORY</th><th>PRICE</th><th>FEATURED</th><th>ACTIONS</th></tr></thead><tbody id="productRows"></tbody></table></div>
+    </section>
+    <section id="tab-categories" class="tab-panel hidden">
+      <div class="panel-head">
+        <h2>Categories</h2>
+        <div>
+          <span id="saveMsgCats"></span>
+          <button type="button" class="btn btn-ghost" id="saveCatsBtn">Save</button>
+          <button type="button" class="btn btn-primary" id="addCatBtn">+ Add category</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>IMAGE</th><th>NAME</th><th>ID</th><th>ACTIONS</th></tr></thead><tbody id="catRows"></tbody></table></div>
+    </section>
+    <section id="tab-promotions" class="tab-panel hidden">
+      <div class="panel-head">
+        <h2>Promotions</h2>
+        <div>
+          <label style="margin-right:12px"><input type="checkbox" id="promoMasterToggle"> Show on website</label>
+          <span id="saveMsgPromos"></span>
+          <button type="button" class="btn btn-ghost" id="savePromosBtn">Save</button>
+          <button type="button" class="btn btn-primary" id="addPromoBtn">+ Add promotion</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>IMAGE</th><th>DETAILS</th><th>STATUS</th><th>ACTIONS</th></tr></thead><tbody id="promoRows"></tbody></table></div>
+    </section>
+    <section id="tab-settings" class="tab-panel hidden">
+      <div class="panel-head"><h2>Settings</h2><button type="button" class="btn btn-primary" id="saveSettingsBtn">Save settings</button></div>
+      <p id="settingsMsg" style="color:#00A651"></p>
+      <div class="settings-grid">
+        <label>Phone<input id="sPhone"></label>
+        <label>WhatsApp<input id="sWhatsapp"></label>
+        <label>Email<input id="sEmail"></label>
+        <label>Address<input id="sAddress"></label>
+        <label>Location<input id="sLocation"></label>
+        <label>Hours<input id="sHours"></label>
+        <label>Tagline<input id="sTagline"></label>
+        <label style="grid-column:1/-1">About<textarea id="sAbout" rows="4"></textarea></label>
+        <label style="grid-column:1/-1">Logo / brand image<input type="file" id="logoUpload" accept="image/*"></label>
+        <label style="grid-column:1/-1">Hero image<input type="file" id="heroImageInput" accept="image/*"><button type="button" class="btn btn-ghost btn-sm" id="clearHeroBtn">Clear hero</button></label>
+        <img id="heroPreview" alt="" style="max-width:280px;border-radius:12px;display:none">
+      </div>
+    </section>
+    <section id="tab-users" class="tab-panel hidden">
+      <div class="panel-head"><h2>Users</h2><button type="button" class="btn btn-primary" id="addUserBtn">+ Add user</button></div>
+      <div class="table-wrap"><table><thead><tr><th>NAME</th><th>USERNAME</th><th>ROLE</th><th>ACTIONS</th></tr></thead><tbody id="userRows"></tbody></table></div>
+    </section>
+    <section id="tab-logs" class="tab-panel hidden">
+      <div class="panel-head"><h2>Logs &amp; Analytics</h2>
+        <div>
+          <button type="button" class="btn btn-ghost btn-sm" id="clearLogsBtn">Clear logs</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="clearAnalyticsBtn">Reset analytics</button>
+        </div>
+      </div>
+      <p>Total views: <strong id="analyticsTotal">0</strong> · Pages: <strong id="analyticsPages">0</strong></p>
+      <div class="table-wrap"><table><thead><tr><th>TIME</th><th>USER</th><th>ACTION</th><th>DETAIL</th></tr></thead><tbody id="logRows"></tbody></table></div>
+      <h3 style="margin-top:24px">Page views</h3>
+      <div class="table-wrap"><table><thead><tr><th>PAGE</th><th>VIEWS</th></tr></thead><tbody id="analyticsPageRows"></tbody></table></div>
+      <h3 style="margin-top:24px">Recent visits</h3>
+      <div class="table-wrap"><table><thead><tr><th>TIME</th><th>PATH</th><th>REFERRER</th></tr></thead><tbody id="visitRows"></tbody></table></div>
+    </section>
+    <section id="tab-backup" class="tab-panel hidden">
+      <div class="panel-head"><h2>Backup</h2></div>
+      <p>Export or import full catalogue data as JSON.</p>
+      <button type="button" class="btn btn-primary" id="exportBtn">Export backup</button>
+      <label class="btn btn-ghost" style="display:inline-flex;margin-left:8px">Import<input type="file" id="importFile" accept="application/json" hidden></label>
+      <button type="button" class="btn btn-danger" id="resetBtn" style="margin-left:8px">Reset data</button>
+    </section>
+  </main>
 </div>
 <div class="modal-bg hidden" id="productModal">
   <div class="modal"><h3 id="productModalTitle">Add product</h3>
     <input type="hidden" id="editProductId">
-    <label>Name *</label><input type="text" id="pName">
-    <div class="grid2"><div><label>Category</label><select id="pCategory"></select></div><div><label>Price</label><input type="text" id="pPrice"></div></div>
-    <label>Part number</label><input type="text" id="pPart">
-    <label>Description</label><textarea id="pDesc" rows="2"></textarea>
-    <label>Image</label><input type="file" id="pImage" accept="image/*">
+    <label>Name<input id="pName"></label>
+    <label>Category<select id="pCategory"></select></label>
+    <label>Price<input id="pPrice" placeholder="On request"></label>
+    <label>Part number<input id="pPart"></label>
+    <label>Description<textarea id="pDesc" rows="3"></textarea></label>
+    <label><input type="checkbox" id="pFeatured"> Featured</label>
+    <label>Image<input type="file" id="pImage" accept="image/*"></label>
     <img id="pPreview" class="preview" alt="">
-    <label class="check-row"><input type="checkbox" id="pFeatured"> Featured</label>
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelProduct">Cancel</button><button class="btn btn-primary" id="saveProduct">Save</button></div>
   </div>
 </div>
 <div class="modal-bg hidden" id="categoryModal">
   <div class="modal"><h3 id="categoryModalTitle">Add category</h3>
     <input type="hidden" id="editCatId">
-    <label>Name *</label><input type="text" id="cName">
-    <label>Photo</label><input type="file" id="cImage" accept="image/*">
+    <label>Name<input id="cName"></label>
+    <label>Image<input type="file" id="cImage" accept="image/*"></label>
     <img id="cPreview" class="preview" alt="">
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelCategory">Cancel</button><button class="btn btn-primary" id="saveCategory">Save</button></div>
   </div>
@@ -170,27 +160,23 @@
 <div class="modal-bg hidden" id="promoModal">
   <div class="modal"><h3 id="promoModalTitle">Add promotion</h3>
     <input type="hidden" id="editPromoId">
-    <label>Title *</label><input type="text" id="prTitle">
-    <label>Message</label><textarea id="prMessage" rows="2"></textarea>
-    <div class="grid2">
-      <div><label>Discount %</label><input type="number" id="prPercent" min="0" max="100"></div>
-      <div><label>Category</label><select id="prCategory"><option value="">All / general</option></select></div>
-    </div>
-    <label>Ends on (optional)</label><input type="date" id="prEndDate">
-    <label>Or duration text (optional)</label><input type="text" id="prDuration" placeholder="e.g. This week only">
-    <label>Promo image (optional)</label><input type="file" id="prImage" accept="image/*">
+    <label>Title<input id="prTitle"></label>
+    <label>Message<textarea id="prMessage" rows="2"></textarea></label>
+    <label>% Off<input id="prPercent" type="number" min="0" max="100"></label>
+    <label>Category<select id="prCategory"></select></label>
+    <label>Image<input type="file" id="prImage" accept="image/*"></label>
     <img id="prPreview" class="preview" alt="">
-    <label class="check-row"><input type="checkbox" id="prActive" checked> Active</label>
+    <label><input type="checkbox" id="prActive" checked> Active</label>
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelPromo">Cancel</button><button class="btn btn-primary" id="savePromo">Save</button></div>
   </div>
 </div>
 <div class="modal-bg hidden" id="userModal">
   <div class="modal"><h3 id="userModalTitle">Add user</h3>
     <input type="hidden" id="editUserId">
-    <label>Name *</label><input type="text" id="uName">
-    <label>Username *</label><input type="text" id="uUsername">
-    <label>Password</label><input type="password" id="uPassword">
-    <label>Role</label><select id="uRole"><option value="admin">Admin</option><option value="owner">Owner</option></select>
+    <label>Name<input id="uName"></label>
+    <label>Username<input id="uUsername"></label>
+    <label>Password<input id="uPassword" type="password"></label>
+    <label>Role<select id="uRole"><option value="admin">Admin</option><option value="owner">Owner</option></select></label>
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelUser">Cancel</button><button class="btn btn-primary" id="saveUser">Save</button></div>
   </div>
 </div>
@@ -198,23 +184,9 @@
 <script src="cloud-sync.js"></script>
 <script src="branding.js"></script>
 <script src="admin-app.js"></script>
+<script src="admin-confirm.js"></script>
 <script src="admin-save.js"></script>
 <script src="admin-promo-fields.js"></script>
 <script src="admin-logo.js"></script>
-<script>
-(function(){
-  var KEY='clyn_admin_theme';
-  function apply(dark){
-    document.body.classList.toggle('admin-dark', dark);
-    var t=document.getElementById('themeToggle');
-    if(t) t.textContent=dark?'Light':'Dark';
-    try{localStorage.setItem(KEY,dark?'dark':'light');}catch(e){}
-  }
-  try{if(localStorage.getItem(KEY)==='dark')apply(true);}catch(e){}
-  document.addEventListener('click',function(e){
-    if(e.target&&e.target.id==='themeToggle') apply(!document.body.classList.contains('admin-dark'));
-  });
-})();
-</script>
 </body>
 </html>
