@@ -1,25 +1,39 @@
 window.ClynImages = window.ClynImages || {};
-/* Clean SVG logo — always loads */
-if (!ClynImages.logo) {
-  ClynImages.logo = 'data:image/svg+xml,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">' +
-    '<rect width="64" height="64" rx="12" fill="#00A651"/>' +
-    '<text x="32" y="42" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="28" fill="#fff">C</text>' +
-    '</svg>'
-  );
-}
 (function () {
   function apply() {
-    var logoSrc = ClynImages.logo;
+    /* Reliable logo: green C square — no image dependency */
     document.querySelectorAll('#siteLogo, .logo-img, #adminLogo, .login-logo-img').forEach(function (el) {
       if (!el) return;
-      el.src = logoSrc;
-      el.alt = 'C-LYN';
-      el.style.display = 'block';
+      el.style.display = 'none';
+      el.removeAttribute('src');
+    });
+    document.querySelectorAll('.logo').forEach(function (logo) {
+      if (!logo.querySelector('.logo-mark')) {
+        var mark = document.createElement('span');
+        mark.className = 'logo-mark';
+        mark.setAttribute('aria-hidden', 'true');
+        mark.textContent = 'C';
+        logo.insertBefore(mark, logo.firstChild);
+      }
     });
     document.querySelectorAll('.logo-mark').forEach(function (el) {
-      if (el) el.style.display = 'none';
+      el.style.display = 'flex';
     });
+    /* Admin login logo */
+    var adminLogo = document.getElementById('adminLogo');
+    if (adminLogo && adminLogo.parentElement) {
+      adminLogo.style.display = 'none';
+      if (!adminLogo.parentElement.querySelector('.logo-mark')) {
+        var m = document.createElement('div');
+        m.className = 'logo-mark';
+        m.style.width = '64px';
+        m.style.height = '64px';
+        m.style.fontSize = '1.6rem';
+        m.style.margin = '0 auto';
+        m.textContent = 'C';
+        adminLogo.parentElement.insertBefore(m, adminLogo);
+      }
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
   else apply();
