@@ -94,6 +94,15 @@
             <button type="button" class="btn btn-ghost btn-sm" id="clearHeroBtn">Use default image</button>
           </div>
         </div>
+        <h3>Website logo</h3>
+        <p class="muted">Upload your official logo. It shows on the site header and admin login.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:20px">
+          <img id="logoPreview" class="preview" alt="Logo" style="max-width:120px;max-height:120px;border-radius:10px;background:#f3f4f6;object-fit:contain">
+          <div>
+            <label class="btn btn-ghost btn-sm" style="cursor:pointer">Upload logo<input type="file" id="logoImageInput" accept="image/*" hidden></label>
+            <button type="button" class="btn btn-ghost btn-sm" id="clearLogoBtn">Remove logo</button>
+          </div>
+        </div>
         <h3>Contact &amp; about</h3>
         <div class="grid2"><div><label>Phone</label><input type="text" id="sPhone"></div><div><label>WhatsApp</label><input type="text" id="sWhatsapp"></div></div>
         <label>Email</label><input type="email" id="sEmail">
@@ -137,8 +146,7 @@
   </div>
 </div>
 <div class="modal-bg hidden" id="productModal">
-  <div class="modal">
-    <h3 id="productModalTitle">Add product</h3>
+  <div class="modal"><h3 id="productModalTitle">Add product</h3>
     <input type="hidden" id="editProductId">
     <label>Name *</label><input type="text" id="pName">
     <div class="grid2"><div><label>Category</label><select id="pCategory"></select></div><div><label>Price</label><input type="text" id="pPrice"></div></div>
@@ -151,8 +159,7 @@
   </div>
 </div>
 <div class="modal-bg hidden" id="categoryModal">
-  <div class="modal">
-    <h3 id="categoryModalTitle">Add category</h3>
+  <div class="modal"><h3 id="categoryModalTitle">Add category</h3>
     <input type="hidden" id="editCatId">
     <label>Name *</label><input type="text" id="cName">
     <label>Photo</label><input type="file" id="cImage" accept="image/*">
@@ -161,19 +168,16 @@
   </div>
 </div>
 <div class="modal-bg hidden" id="promoModal">
-  <div class="modal">
-    <h3 id="promoModalTitle">Add promotion</h3>
+  <div class="modal"><h3 id="promoModalTitle">Add promotion</h3>
     <input type="hidden" id="editPromoId">
-    <label>Title *</label><input type="text" id="prTitle" placeholder="e.g. Special Offer">
+    <label>Title *</label><input type="text" id="prTitle">
     <label>Message</label><textarea id="prMessage" rows="2"></textarea>
     <div class="grid2">
-      <div><label>Discount %</label><input type="number" id="prPercent" min="0" max="100" placeholder="e.g. 20"></div>
+      <div><label>Discount %</label><input type="number" id="prPercent" min="0" max="100"></div>
       <div><label>Category</label><select id="prCategory"><option value="">All / general</option></select></div>
     </div>
-    <label>Ends on (optional)</label>
-    <input type="date" id="prEndDate">
-    <label>Or duration text (optional)</label>
-    <input type="text" id="prDuration" placeholder="e.g. This week only">
+    <label>Ends on (optional)</label><input type="date" id="prEndDate">
+    <label>Or duration text (optional)</label><input type="text" id="prDuration" placeholder="e.g. This week only">
     <label>Promo image (optional)</label><input type="file" id="prImage" accept="image/*">
     <img id="prPreview" class="preview" alt="">
     <label class="check-row"><input type="checkbox" id="prActive" checked> Active</label>
@@ -181,8 +185,7 @@
   </div>
 </div>
 <div class="modal-bg hidden" id="userModal">
-  <div class="modal">
-    <h3 id="userModalTitle">Add user</h3>
+  <div class="modal"><h3 id="userModalTitle">Add user</h3>
     <input type="hidden" id="editUserId">
     <label>Name *</label><input type="text" id="uName">
     <label>Username *</label><input type="text" id="uUsername">
@@ -191,11 +194,12 @@
     <div class="modal-actions"><button class="btn btn-ghost" id="cancelUser">Cancel</button><button class="btn btn-primary" id="saveUser">Save</button></div>
   </div>
 </div>
-<script src="branding.js"></script>
 <script src="data.js"></script>
+<script src="branding.js"></script>
 <script src="admin-app.js"></script>
 <script src="admin-save.js"></script>
 <script src="admin-promo-fields.js"></script>
+<script src="admin-logo.js"></script>
 <script>
 (function(){
   var KEY='clyn_admin_theme';
