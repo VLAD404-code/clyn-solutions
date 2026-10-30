@@ -18,13 +18,22 @@
 
   function ensureData() {
     if (typeof ClynData === 'undefined') return;
+    // Only seed once ever — never restore after admin deletes
+    if (localStorage.getItem('clyn_seeded_ok') === '1') return;
     var products = ClynData.getProducts();
     var cats = ClynData.getCategories();
+    var need = false;
     if (!products || !products.length) {
       localStorage.setItem('clyn_products', JSON.stringify(SAMPLE_PRODUCTS));
+      need = true;
     }
     if (!cats || !cats.length) {
       localStorage.setItem('clyn_categories', JSON.stringify(SAMPLE_CATS));
+      need = true;
+    }
+    localStorage.setItem('clyn_seeded_ok', '1');
+    if (need && window.ClynCloud && ClynCloud.publish) {
+      try { ClynCloud.publish(); } catch (e) {}
     }
   }
 
@@ -49,9 +58,9 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 100); });
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 120); });
   } else {
-    setTimeout(boot, 100);
+    setTimeout(boot, 120);
   }
-  window.addEventListener('clyn-cloud-ready', function () { setTimeout(boot, 60); });
+  window.addEventListener('clyn-cloud-ready', function () { setTimeout(boot, 80); });
 })();
