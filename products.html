@@ -4,13 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Products · C-LYN SOLUTIONS LIMITED</title>
+<meta name="description" content="Browse mining parts, truck & automotive spares, filters, bearings and more from C-LYN SOLUTIONS in Kitwe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="cart-ui.css">
 <link rel="stylesheet" href="mobile.css">
 <link rel="stylesheet" href="logo-styles.css">
+<link rel="stylesheet" href="hero-bg.css">
 </head>
 <body>
+<div id="promoBanner" class="promo-banner" style="display:none"></div>
 <header class="header" id="header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
@@ -23,31 +27,28 @@
       <a href="products.html" class="active">Products</a>
       <a href="index.html#contact">Contact</a>
     </nav>
-    <a class="btn btn-wa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn btn-wa" id="headerWa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
   </div>
 </header>
-<section class="page-hero">
+<section class="page-hero page-hero-bg">
   <div class="container">
-    <p class="breadcrumb"><a href="index.html">Home</a> / Products</p>
+    <p class="breadcrumb"><a href="index.html">Home</a> · Products</p>
     <h1>Product catalogue</h1>
-    <p>Search and filter mining, truck and equipment parts.</p>
+    <p>Search and filter mining, truck and industrial parts. Enquire on WhatsApp for pricing and availability.</p>
   </div>
 </section>
 <section class="section">
   <div class="container">
     <div class="filters" id="filters"></div>
-    <div class="search-bar">
-      <input class="search" id="search" type="search" placeholder="Search parts, part numbers…" autocomplete="off">
-    </div>
-    <p class="results-meta" id="resultsMeta"></p>
-    <div class="grid" id="productsGrid"></div>
+    <div class="search-bar"><input type="search" id="searchInput" placeholder="Search parts…"></div>
+    <div class="grid" id="productGrid"></div>
     <div class="pagination" id="pagination"></div>
   </div>
 </section>
 <footer class="footer">
   <div class="container footer-inner">
-    <div><strong>C-LYN SOLUTIONS LIMITED</strong><p>Your solution, is our Resolution.</p></div>
+    <div><strong>C-LYN SOLUTIONS LIMITED</strong></div>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
@@ -56,6 +57,7 @@
   </div>
 </footer>
 <script src="img/logo.js"></script>
+<script src="branding.js"></script>
 <script src="data.js"></script>
 <script src="script.js"></script>
 </body>
