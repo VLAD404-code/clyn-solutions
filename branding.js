@@ -7,7 +7,7 @@
       });
       document.querySelectorAll('.logo-mark').forEach(function(el){ el.style.display='none'; });
     }
-    if(ClynImages.heroParts){
+    if(ClynImages.heroParts && ClynImages.heroParts.length>100){
       document.querySelectorAll('.hero-bg').forEach(function(el){
         el.style.backgroundImage="url('"+ClynImages.heroParts+"')";
       });
