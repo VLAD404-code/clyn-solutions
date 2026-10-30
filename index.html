@@ -3,18 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <title>C-LYN SOLUTIONS LIMITED | Mining & Truck Parts Kitwe</title>
 <meta name="description" content="Mining and automotive truck parts supplier in Kitwe, Zambia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="cart-ui.css">
+<link rel="stylesheet" href="mobile.css">
 </head>
 <body>
+<div id="promoBanner" class="promo-banner" style="display:none"></div>
 <header class="header" id="header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">C</span>
+      <img class="logo-img" id="siteLogo" src="" alt="C-LYN SOLUTIONS LTD" width="48" height="48">
       <span class="logo-text"><strong>C-LYN</strong><small>SOLUTIONS LIMITED</small></span>
     </a>
     <nav class="nav" id="nav">
@@ -23,7 +26,7 @@
       <a href="products.html">Products</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a class="btn btn-wa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn btn-wa" id="headerWa" href="https://wa.me/260965018323" target="_blank" rel="noopener">WhatsApp</a>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
   </div>
 </header>
@@ -65,7 +68,7 @@
     <div class="reveal">
       <p class="section-label">About us</p>
       <h2>C-LYN SOLUTIONS LIMITED</h2>
-      <p>When a machine stops, work stops. C-LYN SOLUTIONS keeps mining and truck fleets moving across the Copperbelt — quality parts, fair prices, and people who know the job. Based in Kitwe, we supply what your operations need so you spend less time waiting and more time working.</p>
+      <p id="aboutText">When a machine stops, work stops. C-LYN SOLUTIONS keeps mining and truck fleets moving across the Copperbelt — quality parts, fair prices, and people who know the job. Based in Kitwe, we supply what your operations need so you spend less time waiting and more time working.</p>
       <ul class="checks">
         <li>Mining & truck focused</li>
         <li>Competitive pricing</li>
@@ -74,9 +77,9 @@
     </div>
     <div class="info-card reveal">
       <h3>Visit the shop</h3>
-      <p>Shop No. 1 Tattrin Building<br>Opposite Ontario Shopping Complex<br>Freetown Road, Kitwe</p>
-      <p><strong>Mon–Fri:</strong> 07:00 – 17:00<br><strong>Saturday:</strong> 08:00 – 17:00</p>
-      <a class="btn btn-primary btn-sm" href="tel:+260965018323">Call +260 965 018 323</a>
+      <p id="shopAddress">Shop No. 1 Tattrin Building<br>Opposite Ontario Shopping Complex<br>Freetown Road, Kitwe</p>
+      <p id="shopHours"><strong>Mon–Fri:</strong> 07:00 – 17:00<br><strong>Saturday:</strong> 08:00 – 17:00</p>
+      <a class="btn btn-primary btn-sm" id="shopCall" href="tel:+260965018323">Call +260 965 018 323</a>
     </div>
   </div>
 </section>
@@ -99,11 +102,11 @@
       <h2>Contact C-LYN SOLUTIONS</h2>
       <p>Send us your enquiry or call us directly. We respond quickly during business hours.</p>
       <div class="contact-list">
-        <p><strong>Phone:</strong> <a href="tel:+260965018323">+260 965 018 323</a></p>
-        <p><strong>Email:</strong> <a href="mailto:clynsolutions@gmail.com">clynsolutions@gmail.com</a></p>
-        <p><strong>Location:</strong> Freetown Road, Kitwe, Zambia</p>
+        <p><strong>Phone:</strong> <a id="contactPhone" href="tel:+260965018323">+260 965 018 323</a></p>
+        <p><strong>Email:</strong> <a id="contactEmail" href="mailto:clynsolutions@gmail.com">clynsolutions@gmail.com</a></p>
+        <p><strong>Location:</strong> <span id="contactLocation">Freetown Road, Kitwe, Zambia</span></p>
       </div>
-      <a class="btn btn-wa" href="https://wa.me/260965018323?text=Hello%20C-LYN%2C%20I%20need%20parts" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      <a class="btn btn-wa" id="contactWa" href="https://wa.me/260965018323?text=Hello%20C-LYN%2C%20I%20need%20parts" target="_blank" rel="noopener">Chat on WhatsApp</a>
     </div>
   </div>
 </section>
@@ -119,6 +122,8 @@
     <p class="copy">© 2026 C-LYN SOLUTIONS LIMITED. All rights reserved.</p>
   </div>
 </footer>
+<script src="img/logo.js"></script>
+<script src="img/heroParts.js"></script>
 <script src="data.js"></script>
 <script src="script.js"></script>
 </body>
