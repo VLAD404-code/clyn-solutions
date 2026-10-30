@@ -1,0 +1,11 @@
+{
+  "products": [],
+  "categories": [],
+  "settings": {},
+  "promotions": [],
+  "users": [],
+  "logs": [],
+  "analytics": { "totalViews": 0, "pages": {}, "visits": [] },
+  "updatedAt": null,
+  "note": "Populated automatically when admin saves with cloud sync"
+}
