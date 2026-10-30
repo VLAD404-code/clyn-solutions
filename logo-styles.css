@@ -1,0 +1,24 @@
+/* Official C-LYN logo */
+.logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(0, 166, 81, 0.35);
+}
+.logo-mark { display: none; }
+@media (max-width: 480px) {
+  .logo-img { width: 40px; height: 40px; }
+}
+.login-logo { background: transparent !important; border: none !important; width: auto !important; height: auto !important; padding: 0 !important; font-size: 0 !important; }
+.login-logo-img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+}

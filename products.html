@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Products | C-LYN SOLUTIONS LIMITED</title>
-<meta name="description" content="Browse mining parts, truck & automotive spares, filters, bearings and more from C-LYN SOLUTIONS in Kitwe.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<title>Products · C-LYN SOLUTIONS LIMITED</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="cart-ui.css">
+<link rel="stylesheet" href="mobile.css">
+<link rel="stylesheet" href="logo-styles.css">
 </head>
 <body>
 <header class="header" id="header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">C</span>
+      <img class="logo-img" id="siteLogo" src="" alt="C-LYN SOLUTIONS LTD" width="48" height="48">
       <span class="logo-text"><strong>C-LYN</strong><small>SOLUTIONS LIMITED</small></span>
     </a>
     <nav class="nav" id="nav">
@@ -26,43 +28,35 @@
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
   </div>
 </header>
-
-<section class="page-hero page-hero-bg">
+<section class="page-hero">
   <div class="container">
-    <p class="breadcrumb"><a href="index.html">Home</a> · Products</p>
+    <p class="breadcrumb"><a href="index.html">Home</a> / Products</p>
     <h1>Product catalogue</h1>
-    <p>Search and filter mining, truck and industrial parts. Enquire on WhatsApp for pricing and availability.</p>
+    <p>Search and filter mining, truck and equipment parts.</p>
   </div>
 </section>
-
 <section class="section">
   <div class="container">
     <div class="filters" id="filters"></div>
     <div class="search-bar">
-      <input type="search" class="search" id="search" placeholder="Search parts (e.g. centre bearing, filter, clutch…)" autocomplete="off">
+      <input class="search" id="search" type="search" placeholder="Search parts, part numbers…" autocomplete="off">
     </div>
     <p class="results-meta" id="resultsMeta"></p>
     <div class="grid" id="productsGrid"></div>
     <div class="pagination" id="pagination"></div>
   </div>
 </section>
-
 <footer class="footer">
   <div class="container footer-inner">
-    <div>
-      <strong>C-LYN SOLUTIONS LIMITED</strong>
-      <p>Your solution, is our Resolution.</p>
-    </div>
+    <div><strong>C-LYN SOLUTIONS LIMITED</strong><p>Your solution, is our Resolution.</p></div>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
-      <a href="index.html#contact">Contact</a>
       <a href="admin.html">Admin</a>
     </div>
-    <p class="copy">© 2026 C-LYN SOLUTIONS LIMITED. All rights reserved.</p>
   </div>
 </footer>
-
+<script src="img/logo.js"></script>
 <script src="data.js"></script>
 <script src="script.js"></script>
 </body>
