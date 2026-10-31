@@ -19,6 +19,13 @@
     return [];
   }
 
+  function getPromotions() {
+    if (typeof ClynData !== 'undefined' && ClynData.getPromotions) {
+      return ClynData.getPromotions() || [];
+    }
+    return [];
+  }
+
   function getGallery() {
     if (typeof ClynData !== 'undefined' && ClynData.getGallery) {
       var g = ClynData.getGallery();
@@ -174,6 +181,41 @@
     }).join('');
   }
 
+  function renderPromotions() {
+    var promoSection = $('promoSection');
+    var formWrap = $('contactFormWrap');
+    var grid = $('promoGrid');
+    if (!promoSection || !formWrap) return;
+
+    var promos = getPromotions().filter(function (p) {
+      return p && (p.active === true || p.active === 'true' || p.active === 1);
+    });
+
+    if (promos.length) {
+      promoSection.classList.add('visible');
+      formWrap.classList.add('hidden');
+      grid.innerHTML = promos.map(function (p) {
+        var pct = p.percent || p.percentage || p.discount || '';
+        var pctHtml = pct ? '<div class="promo-percent">' + esc(String(pct)) + (String(pct).indexOf('%') === -1 ? '%' : '') + ' OFF</div>' : '';
+        var img = p.image ? '<img src="' + p.image + '" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px">' : '';
+        var wa = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
+          'Hello C-LYN SOLUTIONS, I would like to enquire about the promotion: ' + (p.title || '')
+        );
+        return '<div class="promo-card">' +
+          '<span class="promo-badge">PROMOTION</span>' +
+          img +
+          '<h3>' + esc(p.title || 'Special Offer') + '</h3>' +
+          '<p>' + esc(p.message || p.description || '') + '</p>' +
+          pctHtml +
+          '<a class="btn" href="' + wa + '" target="_blank" rel="noopener">Enquire on WhatsApp</a>' +
+          '</div>';
+      }).join('');
+    } else {
+      promoSection.classList.remove('visible');
+      formWrap.classList.remove('hidden');
+    }
+  }
+
   function initContact() {
     var form = $('contactForm');
     if (!form) return;
@@ -209,6 +251,7 @@
     initNav();
     initProducts();
     renderGallery();
+    renderPromotions();
     initContact();
   }
 
@@ -219,9 +262,9 @@
   }
 
   window.addEventListener('clyn-cloud-ready', function () {
-    setTimeout(function () { initProducts(); renderGallery(); }, 80);
+    setTimeout(function () { initProducts(); renderGallery(); renderPromotions(); }, 80);
   });
   window.addEventListener('clyn-seeded', function () {
-    setTimeout(function () { initProducts(); renderGallery(); }, 80);
+    setTimeout(function () { initProducts(); renderGallery(); renderPromotions(); }, 80);
   });
 })();
