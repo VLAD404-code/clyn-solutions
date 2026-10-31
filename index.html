@@ -49,7 +49,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .btn-danger { background: #dc2626; color: white; border-color: #dc2626; }
 .btn-danger:hover { background: #b91c1c; }
 
-/* Header */
 .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); transition: all var(--transition); }
 .header.scrolled { background: rgba(26,26,46,0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
@@ -66,7 +65,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
 .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
 
-/* Hero */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; background: var(--navy); overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 20%, rgba(0, 166, 81, 0.15), transparent), radial-gradient(ellipse 60% 50% at 20% 80%, rgba(43, 43, 54, 0.8), transparent), linear-gradient(180deg, var(--navy) 0%, #12121F 100%); pointer-events: none; }
 .hero-bg::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.6; }
@@ -81,14 +79,12 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .stat-number { font-weight: 700; font-size: 1.05rem; color: var(--white); }
 .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
 
-/* Sections */
 .section { padding: 80px 0; }
 .section-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
 .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
 .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 800; color: var(--navy); margin-bottom: 12px; }
 .section-header p { color: var(--text-muted); font-size: 1.05rem; }
 
-/* About */
 .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
 .about-content p { margin-bottom: 16px; color: var(--text-muted); }
 .about-highlights { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
@@ -101,7 +97,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .about-card-hours strong { color: var(--red); margin-bottom: 4px; }
 .about-card-hours span { color: rgba(255,255,255,0.7); }
 
-/* Products */
 .product-filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
 .filter-btn { padding: 8px 16px; border-radius: 100px; border: 1.5px solid var(--gray-light); background: var(--white); font-weight: 600; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: all var(--transition); }
 .filter-btn:hover, .filter-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
@@ -124,7 +119,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .products-cta { text-align: center; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--gray-light); }
 .products-cta p { color: var(--text-muted); margin-bottom: 16px; }
 
-/* Gallery */
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
 .gallery-item { border-radius: var(--radius); overflow: hidden; background: var(--navy); position: relative; aspect-ratio: 4/3; display: flex; align-items: flex-end; }
 .gallery-item-bg { position: absolute; inset: 0; opacity: 0.4; background: linear-gradient(135deg, var(--navy-light), var(--red)); }
@@ -132,7 +126,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .gallery-item h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
 .gallery-item p { font-size: 0.85rem; opacity: 0.8; }
 
-/* Why Us */
 .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
 .why-card { background: var(--off-white); border-radius: var(--radius); padding: 28px 24px; transition: all var(--transition); }
 .why-card:hover { background: var(--white); box-shadow: var(--shadow); }
@@ -140,7 +133,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .why-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
 .why-card p { font-size: 0.9rem; color: var(--text-muted); }
 
-/* Contact */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
 .contact-item { display: flex; gap: 16px; margin-bottom: 24px; }
 .contact-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(0,166,81,0.1); color: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -154,22 +146,21 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(0,166,81,0.12); }
 .form-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; text-align: center; }
 
-/* Promotions (replaces form when active) */
 .promo-section { display: none; }
 .promo-section.visible { display: block; }
 .promo-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.promo-card { background: linear-gradient(135deg, #00A651 0%, #008C44 100%); color: white; border-radius: var(--radius); padding: 24px; position: relative; overflow: hidden; }
-.promo-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.08); border-radius: 50%; }
-.promo-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; }
-.promo-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
-.promo-card p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 12px; }
-.promo-percent { font-size: 1.8rem; font-weight: 800; color: #fff; }
-.promo-card .btn { background: white; color: #008C44; border-color: white; margin-top: 8px; }
-.promo-card .btn:hover { background: #f0f0f0; }
+.promo-card { background: linear-gradient(160deg, rgba(0,166,81,0.55), rgba(0,80,40,0.7)); color: white; border-radius: 20px; padding: 20px; position: relative; overflow: hidden; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 20px 50px rgba(0,0,0,0.18); }
+.promo-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 85% 15%, rgba(255,255,255,0.18), transparent 40%); pointer-events: none; }
+.promo-card img { border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.promo-badge { display: inline-block; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.3); padding: 5px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 12px; }
+.promo-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 6px; }
+.promo-card p { font-size: 0.92rem; opacity: 0.92; margin-bottom: 10px; }
+.promo-percent { font-size: 1.9rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.promo-card .btn { background: rgba(255,255,255,0.95); color: #008C44; border: none; margin-top: 10px; border-radius: 12px; font-weight: 700; }
+.promo-card .btn:hover { background: #fff; transform: translateY(-1px); }
 .contact-form-wrap { display: block; }
 .contact-form-wrap.hidden { display: none; }
 
-/* Footer */
 .footer { background: var(--navy); color: var(--white); padding: 60px 0 0; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand .logo { margin-bottom: 16px; }
@@ -183,7 +174,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .footer-bottom a { color: rgba(255,255,255,0.5); }
 .footer-bottom a:hover { color: var(--red); }
 
-/* Modal */
 .modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; padding: 20px; }
 .modal.open, .modal.active { display: flex; }
 .modal-content { background: var(--white); border-radius: var(--radius); padding: 32px; max-width: 400px; width: 100%; text-align: center; box-shadow: var(--shadow-lg); }
@@ -193,7 +183,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .modal-hint { font-size: 0.85rem !important; }
 .modal-content .btn { margin-top: 16px; }
 
-/* Mobile */
 @media (max-width: 768px) {
   .nav { display: none; position: absolute; top: 72px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .nav.open { display: flex; }
@@ -242,138 +231,137 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
     </div>
   </header>
 
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="container hero-content">
-      <div class="hero-badge">Kitwe, Zambia · Mining & Automotive Parts</div>
-      <h1>Your Solution,<br><span>Is Our Resolution</span></h1>
-      <p class="hero-text">Specialists in Mining & Automotive Truck Parts, Heavy Duty Equipment, Electrical Spares and General Trading. Quality parts. Reliable service. Fast delivery.</p>
-      <div class="hero-buttons">
-        <a href="#products" class="btn btn-primary">View Products</a>
-        <a href="#contact" class="btn btn-outline">Get a Quote</a>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg"></div>
+      <div class="container hero-content">
+        <span class="hero-badge">Kitwe, Copperbelt · Zambia</span>
+        <h1>Mining & Truck Parts.<br>Your solution is our <span>Resolution</span>.</h1>
+        <p class="hero-text">C-LYN SOLUTIONS LIMITED supplies heavy-duty equipment, mining spares, electrical components and general trading from Kitwe. Fast quotes, local stock, reliable service.</p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-primary">Browse products</a>
+          <a href="https://wa.me/260965018323" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp us</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-number">Mining</span><span class="stat-label">Equipment & spares</span></div>
+          <div class="stat"><span class="stat-number">Truck</span><span class="stat-label">Heavy-duty parts</span></div>
+          <div class="stat"><span class="stat-number">Local</span><span class="stat-label">Kitwe supply</span></div>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-number">Quality</span><span class="stat-label">Genuine Parts</span></div>
-        <div class="stat"><span class="stat-number">Fast</span><span class="stat-label">Local Supply</span></div>
-        <div class="stat"><span class="stat-number">Kitwe</span><span class="stat-label">Copperbelt</span></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">About Us</span>
-        <h2>Keeping machines moving</h2>
-        <p>When a machine stops, work stops. We keep mining and truck fleets moving with quality spare parts and fast response in Kitwe.</p>
-      </div>
-      <div class="about-grid">
-        <div class="about-content">
-          <p>C-LYN SOLUTIONS LIMITED supplies mining, truck, and heavy equipment spare parts across the Copperbelt. From filters and brakes to electrical components and general trading, we stock what keeps your operation running.</p>
-          <p>Based in Kitwe, we understand local demand and respond quickly when you need parts on site.</p>
-          <div class="about-highlights">
-            <div class="highlight"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Genuine and quality parts</div>
-            <div class="highlight"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Fast local delivery</div>
-            <div class="highlight"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> WhatsApp quotations</div>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About</span>
+          <h2>Built for the Copperbelt</h2>
+          <p>We keep mining and transport running with the right parts, at the right time.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-content">
+            <p>C-LYN SOLUTIONS LIMITED is a Kitwe-based supplier of mining equipment, truck and heavy-duty spares, electrical components and general trading goods. We work with operators who need parts that arrive, fit, and last.</p>
+            <p>From filters and hydraulics to electrical and engine parts, we source and supply what the job needs — with clear quotes and local support.</p>
+            <div class="about-highlights">
+              <div class="highlight"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Local stock and fast quotes</div>
+              <div class="highlight"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Mining, truck and electrical spares</div>
+              <div class="highlight"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> WhatsApp enquiries, clear pricing</div>
+            </div>
+          </div>
+          <div class="about-card">
+            <h3>Visit or call</h3>
+            <p>Based in Kitwe, Copperbelt. Reach us for a quote or to check stock on the part you need.</p>
+            <div class="about-card-hours">
+              <strong>Hours</strong>
+              <span>Mon–Fri 08:00–17:00</span>
+              <span>Sat 08:00–13:00</span>
+            </div>
+            <a href="#contact" class="btn btn-primary">Get in touch</a>
           </div>
         </div>
-        <div class="about-card">
-          <h3>Visit us</h3>
-          <p>Shop No. 1 Tattrin Building, Freetown Road, Kitwe, Zambia.</p>
-          <div class="about-card-hours">
-            <strong>Hours</strong>
-            <span>Mon–Fri: 07:00 – 17:00</span>
-            <span>Sat: 08:00 – 13:00</span>
+      </div>
+    </section>
+
+    <section class="section" id="products" style="background:var(--off-white)">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Catalogue</span>
+          <h2>Products</h2>
+          <p>Filter by category or search by name and part number.</p>
+        </div>
+        <div class="product-filters" id="productFilters"></div>
+        <div class="product-search-wrap"><input class="product-search" id="productSearch" placeholder="Search products or part numbers"></div>
+        <div class="products-grid" id="productsGrid"></div>
+        <p class="products-empty" id="productsEmpty" style="display:none">No products match that search.</p>
+        <div class="products-cta">
+          <p>Need something not listed? Ask for a quote.</p>
+          <a href="https://wa.me/260965018323" target="_blank" rel="noopener" class="btn btn-whatsapp">Enquire on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Gallery</span>
+          <h2>What we supply</h2>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="why-us" style="background:var(--off-white)">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Why us</span>
+          <h2>Why operators choose C-LYN</h2>
+        </div>
+        <div class="why-grid">
+          <div class="why-card"><div class="why-number">01</div><h3>Local & responsive</h3><p>Based in Kitwe. Quick answers on WhatsApp and clear lead times.</p></div>
+          <div class="why-card"><div class="why-number">02</div><h3>The right parts</h3><p>Mining, truck, hydraulic and electrical spares sourced for the job.</p></div>
+          <div class="why-card"><div class="why-number">03</div><h3>Straightforward quotes</h3><p>Ask for a part, get a price. No runaround.</p></div>
+          <div class="why-card"><div class="why-number">04</div><h3>Reliable supply</h3><p>We keep common items moving so downtime stays short.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Contact</span>
+          <h2>Get in touch</h2>
+        </div>
+        <div class="contact-grid">
+          <div>
+            <div class="contact-item"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><strong>Phone</strong><p><a href="tel:+260965018323">+260 965 018 323</a></p></div></div>
+            <div class="contact-item"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><strong>Email</strong><p><a href="mailto:info@clynsolutions.com">info@clynsolutions.com</a></p></div></div>
+            <div class="contact-item"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><strong>Address</strong><p>Kitwe, Copperbelt, Zambia</p></div></div>
           </div>
-          <a href="https://wa.me/260965018323" class="btn btn-primary" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          <div>
+            <div id="promoSection" class="promo-section"><div class="promo-grid" id="promoGrid"></div></div>
+            <div id="contactFormWrap" class="contact-form-wrap">
+              <form class="contact-form" id="contactForm">
+                <div class="form-group"><label>Name</label><input id="name" required></div>
+                <div class="form-group"><label>Phone</label><input id="phone" required></div>
+                <div class="form-group"><label>Email</label><input id="email" type="email"></div>
+                <div class="form-group"><label>Subject</label><input id="subject"></div>
+                <div class="form-group"><label>Message</label><textarea id="message" rows="4" required></textarea></div>
+                <button type="submit" class="btn btn-primary btn-full">Send on WhatsApp</button>
+                <p class="form-note">Opens WhatsApp with your message.</p>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="products" style="background:var(--off-white)">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Catalogue</span>
-        <h2>Products</h2>
-        <p>Browse our range of mining, truck, and heavy equipment spare parts.</p>
-      </div>
-      <div class="product-filters" id="productFilters"></div>
-      <div class="product-search-wrap"><input class="product-search" id="productSearch" placeholder="Search parts..."></div>
-      <div class="products-grid" id="productsGrid"></div>
-      <p class="products-empty" id="productsEmpty" style="display:none">No products match your search.</p>
-    </div>
-  </section>
-
-  <section class="section" id="gallery">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Gallery</span>
-        <h2>Our work</h2>
-      </div>
-      <div class="gallery-grid" id="galleryGrid"></div>
-    </div>
-  </section>
-
-  <section class="section" id="why-us" style="background:var(--off-white)">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Why Us</span>
-        <h2>Why C-LYN</h2>
-      </div>
-      <div class="why-grid">
-        <div class="why-card"><div class="why-number">01</div><h3>Local stock</h3><p>Parts available in Kitwe so you don't wait on long imports.</p></div>
-        <div class="why-card"><div class="why-number">02</div><h3>Mining focus</h3><p>Built around the needs of mining and heavy truck fleets.</p></div>
-        <div class="why-card"><div class="why-number">03</div><h3>Fast response</h3><p>WhatsApp us for a quote and we reply quickly.</p></div>
-        <div class="why-card"><div class="why-number">04</div><h3>Reliable quality</h3><p>Parts selected to keep machines running longer.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Contact</span>
-        <h2>Get in touch</h2>
-      </div>
-      <div class="contact-grid">
-        <div>
-          <div class="contact-item"><div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><strong>Phone</strong><p><a href="tel:+260965018323">+260 965 018 323</a></p></div></div>
-          <div class="contact-item"><div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><strong>Email</strong><p><a href="mailto:clynsolutions@gmail.com">clynsolutions@gmail.com</a></p></div></div>
-          <div class="contact-item"><div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><strong>Address</strong><p>Shop No. 1 Tattrin Building, Freetown Road, Kitwe, Zambia</p></div></div>
-        </div>
-        <div id="promoSection" class="promo-section"><div class="promo-grid" id="promoGrid"></div></div>
-        <div id="contactFormWrap" class="contact-form-wrap">
-          <form class="contact-form" id="contactForm">
-            <div class="form-group"><label>Name</label><input id="name" required></div>
-            <div class="form-group"><label>Phone</label><input id="phone" required></div>
-            <div class="form-group"><label>Email</label><input id="email" type="email"></div>
-            <div class="form-group"><label>Subject</label><input id="subject"></div>
-            <div class="form-group"><label>Message</label><textarea id="message" rows="4" required></textarea></div>
-            <button type="submit" class="btn btn-primary btn-full">Send via WhatsApp</button>
-            <p class="form-note">Opens WhatsApp with your message.</p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#home" class="logo">
-            <div class="logo-icon"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="20" cy="20" r="18" stroke="#00A651" stroke-width="2.5" fill="none"/>
-  <text x="8" y="26" font-family="Arial Black, sans-serif" font-weight="900" font-size="16" fill="#00A651">C</text>
-  <text x="20" y="22" font-family="Georgia, serif" font-size="11" fill="#A8B0BC">∞</text>
-  <text x="20" y="30" font-family="Arial, sans-serif" font-weight="700" font-size="6" fill="#3B82F6">LYN</text>
-</svg>
-            </div>
-            <div class="logo-text"><span class="logo-name">C-LYN</span><span class="logo-sub">SOLUTIONS LIMITED</span></div>
-          </a>
-          <p>Mining & truck parts in Kitwe.</p>
-          <p class="footer-tagline">Your solution is our Resolution</p>
+          <a href="#home" class="logo"><div class="logo-icon"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="#00A651" stroke-width="2.5" fill="none"/><text x="8" y="26" font-family="Arial Black, sans-serif" font-weight="900" font-size="16" fill="#00A651">C</text><text x="20" y="22" font-family="Georgia, serif" font-size="11" fill="#A8B0BC">∞</text><text x="20" y="30" font-family="Arial, sans-serif" font-weight="700" font-size="6" fill="#3B82F6">LYN</text></svg></div><div class="logo-text"><span class="logo-name">C-LYN</span><span class="logo-sub">SOLUTIONS LIMITED</span></div></a>
+          <p>Mining & truck parts. Kitwe, Zambia.</p>
+          <p class="footer-tagline">Your solution is our Resolution.</p>
         </div>
         <div class="footer-links">
           <h4>Links</h4>
@@ -384,13 +372,13 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
         </div>
         <div class="footer-contact">
           <h4>Contact</h4>
-          <p>+260 965 018 323</p>
-          <p>clynsolutions@gmail.com</p>
-          <p>Kitwe, Zambia</p>
+          <p>Kitwe, Copperbelt</p>
+          <p><a href="tel:+260965018323">+260 965 018 323</a></p>
+          <p><a href="mailto:info@clynsolutions.com">info@clynsolutions.com</a></p>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>&copy; <span id="year"></span> C-LYN SOLUTIONS LIMITED. All rights reserved.</span>
+        <p>&copy; <span id="year"></span> C-LYN SOLUTIONS LIMITED. <a href="admin.html">Admin</a></p>
       </div>
     </div>
   </footer>
@@ -399,8 +387,8 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
     <div class="modal-content">
       <div class="modal-icon">✓</div>
       <h3>Message ready</h3>
-      <p>WhatsApp should have opened with your message.</p>
-      <p class="modal-hint">If it didn't, contact us on +260 965 018 323.</p>
+      <p>WhatsApp should have opened with your enquiry.</p>
+      <p class="modal-hint">If it did not, message us on +260 965 018 323.</p>
       <button type="button" class="btn btn-primary" id="closeModal">Close</button>
     </div>
   </div>
@@ -408,6 +396,7 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
   <script src="data.js"></script>
   <script src="supabase-config.js"></script>
   <script src="supabase-sync.js"></script>
+  <script src="cloud-sync.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
