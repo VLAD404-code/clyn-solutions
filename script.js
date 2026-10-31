@@ -194,18 +194,28 @@
     if (promos.length) {
       promoSection.classList.add('visible');
       formWrap.classList.add('hidden');
+      var products = getProducts();
+      var cats = getCategories();
       grid.innerHTML = promos.map(function (p) {
         var pct = p.percent || p.percentage || p.discount || '';
         var pctHtml = pct ? '<div class="promo-percent">' + esc(String(pct)) + (String(pct).indexOf('%') === -1 ? '%' : '') + ' OFF</div>' : '';
-        var img = p.image ? '<img src="' + p.image + '" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:12px">' : '';
+        var product = p.productId ? products.find(function (x) { return x.id === p.productId; }) : null;
+        var imgSrc = p.image || (product && product.image) || '';
+        var img = imgSrc ? '<img src="' + imgSrc + '" alt="" style="width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:12px;background:#fff">' : '';
+        var productLine = product
+          ? '<div style="font-size:.85rem;opacity:.9;margin-bottom:6px">On: <strong>' + esc(product.name) + '</strong>' + (product.partNumber ? ' (' + esc(product.partNumber) + ')' : '') + '</div>'
+          : '';
+        var catLine = p.category ? '<div style="font-size:.8rem;opacity:.75;margin-bottom:8px">' + esc(catName(p.category, cats)) + '</div>' : '';
         var wa = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
-          'Hello C-LYN SOLUTIONS, I would like to enquire about the promotion: ' + (p.title || '')
+          'Hello C-LYN SOLUTIONS, I would like to enquire about the promotion: ' + (p.title || '') + (product ? ' — ' + product.name : '')
         );
         return '<div class="promo-card">' +
           '<span class="promo-badge">PROMOTION</span>' +
           img +
           '<h3>' + esc(p.title || 'Special Offer') + '</h3>' +
+          productLine +
           '<p>' + esc(p.message || p.description || '') + '</p>' +
+          catLine +
           pctHtml +
           '<a class="btn" href="' + wa + '" target="_blank" rel="noopener">Enquire on WhatsApp</a>' +
           '</div>';
