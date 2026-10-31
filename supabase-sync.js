@@ -75,7 +75,8 @@
       category: row.category || '',
       image: row.image || '',
       active: row.active !== false,
-      endDate: row.end_date || ''
+      endDate: row.end_date || '',
+      productId: row.product_id || ''
     };
   }
   function toPromoRow(p) {
@@ -88,6 +89,7 @@
       image: p.image || '',
       active: p.active !== false,
       end_date: p.endDate || '',
+      product_id: p.productId || '',
       updated_at: new Date().toISOString()
     };
   }
