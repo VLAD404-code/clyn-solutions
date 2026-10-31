@@ -42,8 +42,9 @@ function renderPromos(){
   el.innerHTML=promotions.map(p=>{
     const pct=p.percent?('<span class="badge-off">'+p.percent+'% OFF</span> '):'';
     const cat=p.category?esc(catName(p.category)):'General';
+    const prod=p.productId?(products.find(x=>x.id===p.productId)||{}).name:'';
     const img=p.image?'<img class="thumb" src="'+p.image+'" alt="">':'—';
-    return `<tr><td>${img}</td><td><strong>${esc(p.title)}</strong> ${pct}<br><small style="color:#6B7280">${esc(p.message||'')} · ${cat}</small></td><td>${p.active?'<span class="badge">Active</span>':'Off'}</td><td class="actions-cell"><button class="btn btn-ghost btn-sm" data-editpromo="${p.id}">Edit</button><button class="btn btn-danger btn-sm" data-delpromo="${p.id}">Delete</button></td></tr>`;
+    return `<tr><td>${img}</td><td><strong>${esc(p.title)}</strong> ${pct}<br><small style="color:#6B7280">${esc(p.message||'')} · ${cat}${prod?' · '+esc(prod):''}</small></td><td>${p.active?'<span class="badge">Active</span>':'Off'}</td><td class="actions-cell"><button class="btn btn-ghost btn-sm" data-editpromo="${p.id}">Edit</button><button class="btn btn-danger btn-sm" data-delpromo="${p.id}">Delete</button></td></tr>`;
   }).join('')||'<tr><td colspan="4" style="text-align:center;color:#6B7280;padding:24px">No promotions yet.</td></tr>';
 }
 function renderUsers(){
@@ -126,6 +127,9 @@ function openPromo(p){
   if($('prCategory')){
     $('prCategory').innerHTML='<option value="">All / general</option>'+categories.map(function(c){return '<option value="'+esc(c.id)+'"'+(p&&p.category===c.id?' selected':'')+'>'+esc(c.name)+'</option>';}).join('');
   }
+  if($('prProduct')){
+    $('prProduct').innerHTML='<option value="">None / general</option>'+products.map(function(x){return '<option value="'+esc(x.id)+'"'+(p&&p.productId===x.id?' selected':'')+'>'+esc(x.name)+'</option>';}).join('');
+  }
   $('prActive').checked=p?!!p.active:true;
   show($('promoModal'),true);
 }
@@ -134,7 +138,7 @@ function savePromo(){
   const title=$('prTitle').value.trim();if(!title){alert('Title required');return;}
   const pct=parseInt(($('prPercent')&&$('prPercent').value)||'0',10)||0;
   const id=$('editPromoId').value||('pr'+Date.now());
-  const item={id,title,message:$('prMessage').value.trim(),percent:pct,category:($('prCategory')&&$('prCategory').value)||'',image:promoImageData||'',active:$('prActive').checked};
+  const item={id,title,message:$('prMessage').value.trim(),percent:pct,category:($('prCategory')&&$('prCategory').value)||'',productId:($('prProduct')&&$('prProduct').value)||'',image:promoImageData||'',active:$('prActive').checked};
   const idx=promotions.findIndex(x=>x.id===id);
   if(idx>=0){promotions[idx]=item;log('edit_promo',title+' '+pct+'%');}else{promotions.unshift(item);log('add_promo',title+' '+pct+'%');}
   settings.promoEnabled=true;
