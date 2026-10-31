@@ -278,6 +278,54 @@
       bg.style.backgroundSize = 'cover';
       bg.style.backgroundPosition = 'center';
     }
+
+    if (st.phone) {
+      document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+        a.href = 'tel:' + st.phone.replace(/\s/g, '');
+        a.textContent = st.phone;
+      });
+    }
+    if (st.email) {
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+        a.href = 'mailto:' + st.email;
+        a.textContent = st.email;
+      });
+    }
+    if (st.whatsapp) {
+      document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
+        var base = 'https://wa.me/' + st.whatsapp;
+        var href = a.getAttribute('href') || '';
+        var q = href.indexOf('?');
+        a.href = q > -1 ? base + href.slice(q) : base;
+      });
+    }
+    if (st.address) {
+      document.querySelectorAll('.contact-item').forEach(function (item) {
+        if ((item.innerText || '').indexOf('Address') !== -1) {
+          var p = item.querySelector('p');
+          if (p) p.textContent = st.address + (st.location ? ', ' + st.location : '');
+        }
+      });
+    }
+    if (st.tagline) {
+      var tag = document.querySelector('.footer-tagline');
+      if (tag) tag.textContent = st.tagline;
+    }
+    if (st.about) {
+      var about = document.querySelector('#about .about-content');
+      if (about) {
+        var ps = about.querySelectorAll('p');
+        if (ps[0]) ps[0].textContent = st.about;
+      }
+    }
+    if (st.hours) {
+      var hours = document.querySelector('.about-card-hours');
+      if (hours) {
+        var spans = hours.querySelectorAll('span');
+        if (spans.length) spans[0].textContent = st.hours;
+        if (spans[1]) spans[1].textContent = '';
+      }
+    }
   }
 
   function boot() {
