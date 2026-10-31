@@ -5,7 +5,7 @@
 
   function esc(s) {
     return String(s || '').replace(/[&<>"']/g, function (m) {
-      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+      return ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;' })[m];
     });
   }
 
@@ -245,6 +245,41 @@
     }
   }
 
+  function applyBranding() {
+    var st = {};
+    try { if (typeof ClynData !== 'undefined') st = ClynData.getSettings() || {}; } catch (e) {}
+    var logo = st.logo || '';
+    var hero = st.heroImage || '';
+
+    document.querySelectorAll('.logo').forEach(function (logoEl) {
+      var icon = logoEl.querySelector('.logo-icon');
+      var img = logoEl.querySelector('.logo-img');
+      if (logo) {
+        if (!img) {
+          img = document.createElement('img');
+          img.className = 'logo-img';
+          img.alt = 'C-LYN';
+          img.style.cssText = 'width:40px;height:40px;object-fit:contain;border-radius:8px;background:#fff';
+          if (icon) logoEl.insertBefore(img, icon);
+          else logoEl.insertBefore(img, logoEl.firstChild);
+        }
+        img.src = logo;
+        img.style.display = 'block';
+        if (icon) icon.style.display = 'none';
+      } else if (img) {
+        img.style.display = 'none';
+        if (icon) icon.style.display = '';
+      }
+    });
+
+    var bg = document.querySelector('.hero-bg');
+    if (bg && hero && hero.indexOf('data:') === 0) {
+      bg.style.backgroundImage = 'linear-gradient(rgba(26,26,46,0.55), rgba(26,26,46,0.65)), url("' + hero + '")';
+      bg.style.backgroundSize = 'cover';
+      bg.style.backgroundPosition = 'center';
+    }
+  }
+
   function boot() {
     var y = $('year');
     if (y) y.textContent = new Date().getFullYear();
@@ -253,6 +288,7 @@
     renderGallery();
     renderPromotions();
     initContact();
+    applyBranding();
   }
 
   if (document.readyState === 'loading') {
@@ -262,7 +298,7 @@
   }
 
   window.addEventListener('clyn-cloud-ready', function () {
-    setTimeout(function () { initProducts(); renderGallery(); renderPromotions(); }, 80);
+    setTimeout(function () { initProducts(); renderGallery(); renderPromotions(); applyBranding(); }, 80);
   });
   window.addEventListener('clyn-seeded', function () {
     setTimeout(function () { initProducts(); renderGallery(); renderPromotions(); }, 80);
