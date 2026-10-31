@@ -158,9 +158,7 @@ function saveUser(){
   persistUsers();renderAll();closeUser();
 }
 function renderAll(){renderStats();renderProducts();renderCats();renderPromos();renderUsers();fillSettingsForm();renderLogs();}
-function tryLogin(){
-  const raw=($('loginUser')&&$('loginUser').value.trim())||'admin';
-  const pwd=$('pwd').value;
+function doCheck(raw,pwd){
   let user=ClynData.checkLogin(raw,pwd);
   if(!user && typeof ClynData.getUsers==='function'){
     const users=ClynData.getUsers();
@@ -171,8 +169,21 @@ function tryLogin(){
   if(!user && raw.toLowerCase()==='admin' && pwd==='clyn2026'){
     user={id:'u1',name:'Owner',username:'admin',role:'owner'};
   }
-  if(user){currentUser=user;sessionStorage.setItem(AUTH,JSON.stringify({id:user.id,name:user.name||user.username}));log('login',user.name||user.username);enterApp();}
-  else{$('loginErr').textContent='Incorrect username or password.';$('pwd').focus();}
+  return user;
+}
+function tryLogin(){
+  const raw=($('loginUser')&&$('loginUser').value.trim())||'admin';
+  const pwd=$('pwd').value;
+  const finish=()=>{
+    const user=doCheck(raw,pwd);
+    if(user){currentUser=user;sessionStorage.setItem(AUTH,JSON.stringify({id:user.id,name:user.name||user.username}));log('login',user.name||user.username);enterApp();}
+    else{$('loginErr').textContent='Incorrect username or password.';$('pwd').focus();}
+  };
+  if(window.ClynSupabase && typeof window.ClynSupabase.load==='function'){
+    window.ClynSupabase.load().then(finish).catch(finish);
+  } else {
+    finish();
+  }
 }
 function enterApp(){
   show($('loginScreen'),false);show($('app'),true);
