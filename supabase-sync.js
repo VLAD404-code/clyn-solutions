@@ -21,11 +21,17 @@
       headers: headers(opts.headers),
       body: opts.body ? JSON.stringify(opts.body) : undefined
     }).then(function (r) {
-      if (r.status === 204) return null;
-      return r.json().then(function (j) {
+      if (r.status === 204 || r.status === 201) {
+        var ct = r.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) return null;
+      }
+      return r.text().then(function (txt) {
+        if (!txt || !txt.trim()) return null;
+        var j;
+        try { j = JSON.parse(txt); } catch (e) { return null; }
         if (!r.ok) {
           console.warn('Supabase error', path, j);
-          throw new Error((j && j.message) || r.statusText);
+          throw new Error((j && j.message) || r.statusText || ('HTTP ' + r.status));
         }
         return j;
       });
