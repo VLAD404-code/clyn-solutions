@@ -21,6 +21,7 @@
         message: ($('prMessage') && $('prMessage').value.trim()) || '',
         percent: pct,
         category: ($('prCategory') && $('prCategory').value) || '',
+        productId: ($('prProduct') && $('prProduct').value) || '',
         image: (typeof promoImageData !== 'undefined' && promoImageData) || (list.find(function (x) { return x.id === id; }) || {}).image || '',
         endDate: ($('prEndDate') && $('prEndDate').value) || '',
         duration: ($('prDuration') && $('prDuration').value.trim()) || '',
@@ -43,6 +44,7 @@
           if (!p) return;
           if ($('prEndDate')) $('prEndDate').value = p.endDate || '';
           if ($('prDuration')) $('prDuration').value = p.duration || '';
+          if ($('prProduct') && p.productId) $('prProduct').value = p.productId;
         } catch (err) {}
       }, 100);
     });
