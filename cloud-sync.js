@@ -24,9 +24,7 @@
       if (hasItems(data.promotions) || (data.settings && data.settings.promoEnabled === false)) {
         localStorage.setItem('clyn_promotions', JSON.stringify(data.promotions || []));
       }
-      if (hasItems(data.users)) {
-        localStorage.setItem('clyn_users', JSON.stringify(data.users));
-      }
+      /* users come from Supabase only — do not overwrite */
       if (hasItems(data.logs)) {
         localStorage.setItem('clyn_logs', JSON.stringify(data.logs));
       }
@@ -84,14 +82,7 @@
       var orig = ClynData[fn].bind(ClynData);
       ClynData[fn] = function (arg) {
         orig(arg);
-        publishAll().then(function (res) {
-          var el = document.getElementById('cloudStatus');
-          if (res && res.ok) {
-            if (el) { el.textContent = 'Live ✓ Saved for all visitors'; el.style.color = '#00A651'; }
-          } else {
-            if (el) { el.textContent = 'Saved on this device — cloud issue'; el.style.color = '#b45309'; }
-          }
-        }).catch(function () {});
+        /* status is handled by Supabase sync */
       };
     });
   }
