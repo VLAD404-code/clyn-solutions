@@ -34,7 +34,8 @@
       if (idx >= 0) list[idx] = item; else list.unshift(item);
       ClynData.savePromotions(list);
       if (ClynData.addLog) ClynData.addLog({ user: 'Admin', action: 'save_promo', detail: title + ' ' + pct + '%' });
-      location.reload();
+      var done = (window.ClynSupabase && window.ClynSupabase.publish) ? window.ClynSupabase.publish() : Promise.resolve();
+      done.then(function () { location.reload(); }).catch(function () { location.reload(); });
     };
     /* Prefill end date when editing */
     document.addEventListener('click', function (e) {
