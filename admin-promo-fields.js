@@ -15,6 +15,9 @@
       var pct = parseInt(($('prPercent') && $('prPercent').value) || '0', 10) || 0;
       var id = ($('editPromoId') && $('editPromoId').value) || ('pr' + Date.now());
       var list = ClynData.getPromotions();
+      var preview = $('prPreview');
+      var img = (preview && preview.src && preview.src.indexOf('data:') === 0) ? preview.src
+        : ((typeof promoImageData !== 'undefined' && promoImageData) || (list.find(function (x) { return x.id === id; }) || {}).image || '');
       var item = {
         id: id,
         title: title,
@@ -22,7 +25,7 @@
         percent: pct,
         category: ($('prCategory') && $('prCategory').value) || '',
         productId: ($('prProduct') && $('prProduct').value) || '',
-        image: (typeof promoImageData !== 'undefined' && promoImageData) || (list.find(function (x) { return x.id === id; }) || {}).image || '',
+        image: img,
         endDate: ($('prEndDate') && $('prEndDate').value) || '',
         duration: ($('prDuration') && $('prDuration').value.trim()) || '',
         active: $('prActive') ? $('prActive').checked : true
