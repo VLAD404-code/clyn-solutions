@@ -18,11 +18,23 @@
     };
     r.readAsDataURL(file);
   }
+  function ensurePreview() {
+    var prev = $('logoPreview');
+    if (prev) return prev;
+    var input = $('logoUpload') || $('logoImageInput');
+    if (!input) return null;
+    prev = document.createElement('img');
+    prev.id = 'logoPreview';
+    prev.alt = 'Logo preview';
+    prev.style.cssText = 'max-width:160px;max-height:80px;border-radius:8px;margin-top:8px;display:none;object-fit:contain;background:#fff';
+    input.parentElement.appendChild(prev);
+    return prev;
+  }
   function loadLogoPreview() {
     if (typeof ClynData === 'undefined') return;
     var st = ClynData.getSettings();
     logoData = st.logo || '';
-    var prev = $('logoPreview');
+    var prev = ensurePreview();
     if (prev) {
       if (logoData) {
         prev.src = logoData;
@@ -36,7 +48,7 @@
   }
   function init() {
     loadLogoPreview();
-    var input = $('logoImageInput');
+    var input = $('logoUpload') || $('logoImageInput');
     if (input) {
       input.onchange = function (e) {
         var f = e.target.files[0];
