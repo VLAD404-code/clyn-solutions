@@ -38,7 +38,7 @@ function renderCats(){
 }
 function renderPromos(){
   const el=$('promoRows');if(!el)return;
-  if($('promoMasterToggle'))$('promoMasterToggle').checked=settings.promoEnabled!==false;
+  if($('promoMasterToggle'))$('promoMasterToggle').checked=!!(promotions&&promotions.length)&&settings.promoEnabled!==false;
   el.innerHTML=promotions.map(p=>{
     const pct=p.percent?('<span class="badge-off">'+p.percent+'% OFF</span> '):'';
     const cat=p.category?esc(catName(p.category)):'General';
@@ -137,7 +137,8 @@ function savePromo(){
   const item={id,title,message:$('prMessage').value.trim(),percent:pct,category:($('prCategory')&&$('prCategory').value)||'',image:promoImageData||'',active:$('prActive').checked};
   const idx=promotions.findIndex(x=>x.id===id);
   if(idx>=0){promotions[idx]=item;log('edit_promo',title+' '+pct+'%');}else{promotions.unshift(item);log('add_promo',title+' '+pct+'%');}
-  persistPromos();renderAll();closePromo();
+  settings.promoEnabled=true;
+  persistPromos();persistSettings();renderAll();closePromo();
 }
 function openUser(u){
   $('userModalTitle').textContent=u?'Edit user':'Add user';
@@ -251,24 +252,28 @@ if($('clearAnalyticsBtn'))$('clearAnalyticsBtn').onclick=()=>{if(confirm('Reset 
 if($('saveProductsBtn'))$('saveProductsBtn').onclick=()=>{persistProducts();log('save_products','Confirmed');const el=$('saveMsgProducts');if(el){el.textContent='Saved \u2713';el.style.color='#00A651';setTimeout(()=>el.textContent='',2500);}};
 if($('saveCatsBtn'))$('saveCatsBtn').onclick=()=>{persistCats();log('save_categories','Confirmed');const el=$('saveMsgCats');if(el){el.textContent='Saved \u2713';el.style.color='#00A651';setTimeout(()=>el.textContent='',2500);}};
 if($('savePromosBtn'))$('savePromosBtn').onclick=()=>{persistPromos();persistSettings();log('save_promotions','Confirmed');const el=$('saveMsgPromos');if(el){el.textContent='Saved \u2713';el.style.color='#00A651';setTimeout(()=>el.textContent='',2500);}};
-$('exportBtn').onclick=()=>{const data=ClynData.exportAll();const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clyn-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();log('export_backup','JSON');};
-$('importFile').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{ClynData.importAll(JSON.parse(ev.target.result));load();renderAll();log('import_backup',file.name);alert('Imported.');}catch(err){alert('Invalid file.');}};r.readAsText(file);e.target.value='';};
+$('exportBtn').onclick=()=>{const data=ClynData.exportAll();const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clyn-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();log('export','backup');};
+$('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{ClynData.importAll(JSON.parse(r.result));log('import','backup');load();renderAll();alert('Imported. Refresh the website.');}catch(err){alert('Invalid file');}};r.readAsText(f);};
 $('resetBtn').onclick=()=>{if(confirm('Reset products, categories, settings, promotions?')){ClynData.resetAll();log('reset_data','defaults');load();renderAll();}};
-try{const sess=sessionStorage.getItem(AUTH);if(sess){const s=JSON.parse(sess);currentUser=ClynData.getUsers().find(u=>u.id===s.id)||s;enterApp();}}catch(e){}
 
-/* Dark mode toggle */
-(function(){
-  const KEY='clyn_admin_theme';
+if(sessionStorage.getItem(AUTH))enterApp();
+
+const themeKey='clyn_admin_theme';
+function applyTheme(mode){
+  const dark=mode==='dark';
+  document.body.classList.toggle('admin-dark',dark);
   const btn=$('themeToggle');
-  function apply(dark){
-    document.body.classList.toggle('admin-dark',!!dark);
-    if(btn) btn.textContent=dark?'Light':'Dark';
-  }
-  try{ apply(localStorage.getItem(KEY)==='dark'); }catch(e){}
-  if(btn) btn.onclick=function(){
-    const next=!document.body.classList.contains('admin-dark');
-    apply(next);
-    try{ localStorage.setItem(KEY, next?'dark':'light'); }catch(e){}
+  if(btn)btn.textContent=dark?'Light':'Dark';
+  try{localStorage.setItem(themeKey,mode);}catch(e){}
+}
+(function initTheme(){
+  let mode='light';
+  try{mode=localStorage.getItem(themeKey)||'light';}catch(e){}
+  applyTheme(mode);
+  const btn=$('themeToggle');
+  if(btn)btn.onclick=()=>{
+    const next=document.body.classList.contains('admin-dark')?'light':'dark';
+    applyTheme(next);
   };
 })();
 })();
