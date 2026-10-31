@@ -119,7 +119,16 @@
       try {
         if (products.length) localStorage.setItem('clyn_products', JSON.stringify(products));
         if (categories.length) localStorage.setItem('clyn_categories', JSON.stringify(categories));
-        localStorage.setItem('clyn_promotions', JSON.stringify(promotions || []));
+        var localPromos = [];
+        try { localPromos = JSON.parse(localStorage.getItem('clyn_promotions') || '[]'); } catch (e) {}
+        if (promotions && promotions.length) {
+          localStorage.setItem('clyn_promotions', JSON.stringify(promotions));
+        } else if (localPromos && localPromos.length) {
+          promotions = localPromos;
+          setTimeout(function () { if (window.ClynSupabase && window.ClynSupabase.publish) window.ClynSupabase.publish(); }, 300);
+        } else {
+          localStorage.setItem('clyn_promotions', '[]');
+        }
         if (settings && Object.keys(settings).length) {
           var cur = {};
           try { cur = JSON.parse(localStorage.getItem('clyn_settings') || '{}'); } catch (e) {}
