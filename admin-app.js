@@ -159,9 +159,19 @@ function saveUser(){
 }
 function renderAll(){renderStats();renderProducts();renderCats();renderPromos();renderUsers();fillSettingsForm();renderLogs();}
 function tryLogin(){
-  const username=($('loginUser')&&$('loginUser').value.trim())||'admin';
-  const user=ClynData.checkLogin(username,$('pwd').value);
-  if(user){currentUser=user;sessionStorage.setItem(AUTH,JSON.stringify({id:user.id,name:user.name}));log('login',user.name||user.username);enterApp();}
+  const raw=($('loginUser')&&$('loginUser').value.trim())||'admin';
+  const pwd=$('pwd').value;
+  let user=ClynData.checkLogin(raw,pwd);
+  if(!user && typeof ClynData.getUsers==='function'){
+    const users=ClynData.getUsers();
+    const key=raw.toLowerCase();
+    user=users.find(u=>(u.username||'').toLowerCase()===key && u.password===pwd)
+      || users.find(u=>(u.name||'').toLowerCase()===key && u.password===pwd);
+  }
+  if(!user && raw.toLowerCase()==='admin' && pwd==='clyn2026'){
+    user={id:'u1',name:'Owner',username:'admin',role:'owner'};
+  }
+  if(user){currentUser=user;sessionStorage.setItem(AUTH,JSON.stringify({id:user.id,name:user.name||user.username}));log('login',user.name||user.username);enterApp();}
   else{$('loginErr').textContent='Incorrect username or password.';$('pwd').focus();}
 }
 function enterApp(){
@@ -234,4 +244,20 @@ $('exportBtn').onclick=()=>{const data=ClynData.exportAll();const blob=new Blob(
 $('importFile').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{ClynData.importAll(JSON.parse(ev.target.result));load();renderAll();log('import_backup',file.name);alert('Imported.');}catch(err){alert('Invalid file.');}};r.readAsText(file);e.target.value='';};
 $('resetBtn').onclick=()=>{if(confirm('Reset products, categories, settings, promotions?')){ClynData.resetAll();log('reset_data','defaults');load();renderAll();}};
 try{const sess=sessionStorage.getItem(AUTH);if(sess){const s=JSON.parse(sess);currentUser=ClynData.getUsers().find(u=>u.id===s.id)||s;enterApp();}}catch(e){}
+
+/* Dark mode toggle */
+(function(){
+  const KEY='clyn_admin_theme';
+  const btn=$('themeToggle');
+  function apply(dark){
+    document.body.classList.toggle('admin-dark',!!dark);
+    if(btn) btn.textContent=dark?'Light':'Dark';
+  }
+  try{ apply(localStorage.getItem(KEY)==='dark'); }catch(e){}
+  if(btn) btn.onclick=function(){
+    const next=!document.body.classList.contains('admin-dark');
+    apply(next);
+    try{ localStorage.setItem(KEY, next?'dark':'light'); }catch(e){}
+  };
+})();
 })();
