@@ -144,10 +144,20 @@
         '<p class="product-desc">' + esc(p.description || (p.partNumber ? 'Part: ' + p.partNumber : 'Quality spare part')) + '</p>' +
         '<div class="product-meta">' +
           '<span class="product-price">' + esc(price) + '</span>' +
-          '<span class="product-cat">' + esc(cat) + '</span>' +
+          '<span class="product-cat" data-filtercat="' + esc(p.category) + '" style="cursor:pointer">' + esc(cat) + '</span>' +
           '<a class="product-enquire" href="' + enquire + '" target="_blank" rel="noopener">Enquire</a>' +
         '</div></article>';
     }).join('');
+    grid.onclick = function (e) {
+      var tag = e.target.closest('[data-filtercat]');
+      if (!tag) return;
+      e.preventDefault();
+      activeFilter = tag.getAttribute('data-filtercat');
+      renderFilters();
+      renderProducts();
+      var sec = document.getElementById('products');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
   }
 
   function initProducts() {
