@@ -95,14 +95,14 @@
       (p.partNumber ? ' (' + p.partNumber + ')' : '') +
       '\nPrice listed: ' + price
     );
-    return '<article class="product-card">' +
+    return '<article class="product-card" data-enquire="' + enquire + '" style="cursor:pointer">' +
       img +
       '<div style="padding:16px">' +
       '<h3>' + esc(p.name) + '</h3>' +
       '<p class="product-desc">' + esc(p.partNumber ? 'Part: ' + p.partNumber : (p.description || '')) + '</p>' +
       '<div class="product-meta">' +
         '<span class="product-price">' + esc(price) + '</span>' +
-        '<a class="product-enquire" href="' + enquire + '" target="_blank" rel="noopener">Enquire</a>' +
+        '<a class="product-enquire btn btn-primary btn-sm" href="' + enquire + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">Get a quote</a>' +
       '</div></div></article>';
   }
 
@@ -166,6 +166,12 @@
     }
     if (empty) empty.style.display = 'none';
     grid.innerHTML = list.map(cardHtml).join('');
+    grid.onclick = function (e) {
+      var card = e.target.closest('[data-enquire]');
+      if (!card) return;
+      if (e.target.closest('a')) return;
+      window.open(card.getAttribute('data-enquire'), '_blank');
+    };
   }
 
   function renderSearch() {
@@ -193,6 +199,12 @@
     }
     if (empty) empty.style.display = 'none';
     grid.innerHTML = list.map(cardHtml).join('');
+    grid.onclick = function (e) {
+      var card = e.target.closest('[data-enquire]');
+      if (!card) return;
+      if (e.target.closest('a')) return;
+      window.open(card.getAttribute('data-enquire'), '_blank');
+    };
   }
 
   function initProducts() {
