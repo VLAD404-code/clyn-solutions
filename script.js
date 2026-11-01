@@ -81,88 +81,118 @@
     }, { passive: true });
   }
 
-  var activeFilter = 'all';
+  var activeCat = null;
   var searchQuery = '';
+  var catsShown = 6;
 
-  function renderFilters() {
-    var el = $('productFilters');
-    if (!el) return;
-    var cats = getCategories();
-    var html = '<button class="filter-btn' + (activeFilter === 'all' ? ' active' : '') + '" data-filter="all">All</button>';
-    cats.forEach(function (c) {
-      html += '<button class="filter-btn' + (activeFilter === c.id ? ' active' : '') + '" data-filter="' + esc(c.id) + '">' + esc(c.name) + '</button>';
-    });
-    el.innerHTML = html;
-    el.onclick = function (e) {
-      var btn = e.target.closest('[data-filter]');
-      if (!btn) return;
-      activeFilter = btn.getAttribute('data-filter');
-      renderFilters();
-      renderProducts();
-    };
+  function cardHtml(p) {
+    var img = p.image
+      ? '<div class="product-img-wrap"><img class="product-img" src="' + p.image + '" alt="' + esc(p.name) + '" loading="lazy"></div>'
+      : '<div class="product-img-wrap product-img-placeholder"><span>📦</span></div>';
+    var price = p.price || 'On request';
+    var enquire = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
+      'Hello C-LYN SOLUTIONS, I would like a quotation for:\n\n' + p.name +
+      (p.partNumber ? ' (' + p.partNumber + ')' : '') +
+      '\nPrice listed: ' + price
+    );
+    return '<article class="product-card">' +
+      img +
+      '<h3>' + esc(p.name) + '</h3>' +
+      '<p class="product-desc">' + esc(p.partNumber ? 'Part: ' + p.partNumber : (p.description || '')) + '</p>' +
+      '<div class="product-meta">' +
+        '<span class="product-price">' + esc(price) + '</span>' +
+        '<a class="product-enquire" href="' + enquire + '" target="_blank" rel="noopener">Enquire</a>' +
+      '</div></article>';
   }
 
-  function filteredProducts() {
-    var products = getProducts();
-    var cats = getCategories();
-    var q = searchQuery.toLowerCase().trim();
-    return products.filter(function (p) {
-      if (activeFilter !== 'all' && p.category !== activeFilter) return false;
-      if (!q) return true;
-      var hay = (p.name + ' ' + (p.description || '') + ' ' + (p.partNumber || '') + ' ' + catName(p.category, cats)).toLowerCase();
-      return hay.indexOf(q) !== -1;
-    });
-  }
-
-  function renderProducts() {
-    var grid = $('productsGrid');
+  function renderCategories() {
+    var grid = $('categoryGrid');
+    var more = $('showMoreCats');
     var empty = $('productsEmpty');
     if (!grid) return;
     var cats = getCategories();
-    var list = filteredProducts();
-    if (!list.length) {
-      grid.innerHTML = '';
-      if (empty) empty.style.display = 'block';
-      return;
-    }
-    if (empty) empty.style.display = 'none';
-    grid.innerHTML = list.map(function (p) {
-      var img = p.image
-        ? '<div class="product-img-wrap"><img class="product-img" src="' + p.image + '" alt="' + esc(p.name) + '" loading="lazy"></div>'
-        : '<div class="product-img-wrap product-img-placeholder"><span>📦</span></div>';
-      var badge = p.featured ? '<span class="product-badge">Featured</span>' : '';
-      var price = p.price || 'On request';
-      var cat = catName(p.category, cats);
-      var enquire = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(
-        'Hello C-LYN SOLUTIONS, I would like a quotation for:\n\n' + p.name +
-        (p.partNumber ? ' (' + p.partNumber + ')' : '') +
-        '\nPrice listed: ' + price
-      );
-      return '<article class="product-card' + (p.featured ? ' featured' : '') + '">' +
-        img + badge +
-        '<h3>' + esc(p.name) + '</h3>' +
-        '<p class="product-desc">' + esc(p.description || (p.partNumber ? 'Part: ' + p.partNumber : 'Quality spare part')) + '</p>' +
-        '<div class="product-meta">' +
-          '<span class="product-price">' + esc(price) + '</span>' +
-          '<span class="product-cat" data-filtercat="' + esc(p.category) + '" style="cursor:pointer">' + esc(cat) + '</span>' +
-          '<a class="product-enquire" href="' + enquire + '" target="_blank" rel="noopener">Enquire</a>' +
-        '</div></article>';
+    var products = getProducts();
+    var shown = cats.slice(0, catsShown);
+    grid.innerHTML = shown.map(function (c) {
+      var count = products.filter(function (p) { return p.category === c.id; }).length;
+      return '<article class="product-card" data-opencat="' + esc(c.id) + '" style="cursor:pointer;text-align:center;padding:32px 16px">' +
+        '<h3 style="margin-bottom:8px">' + esc(c.name) + '</h3>' +
+        '<p class="product-desc">' + count + ' items</p>' +
+        '<span class="btn btn-primary btn-sm">View items</span>' +
+        '</article>';
     }).join('');
+    if (more) more.style.display = catsShown < cats.length ? 'inline-flex' : 'none';
+    if (empty) empty.style.display = 'none';
     grid.onclick = function (e) {
-      var tag = e.target.closest('[data-filtercat]');
-      if (!tag) return;
-      e.preventDefault();
-      activeFilter = tag.getAttribute('data-filtercat');
-      renderFilters();
-      renderProducts();
-      var sec = document.getElementById('products');
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var card = e.target.closest('[data-opencat]');
+      if (!card) return;
+      openCategory(card.getAttribute('data-opencat'));
     };
   }
 
+  function openCategory(id) {
+    activeCat = id;
+    searchQuery = '';
+    var s = $('productSearch');
+    if (s) s.value = '';
+    $('categoryView').style.display = 'none';
+    $('itemsView').style.display = 'block';
+    var cats = getCategories();
+    var c = cats.find(function (x) { return x.id === id; });
+    $('activeCatTitle').textContent = c ? c.name : id;
+    renderItems();
+  }
+
+  function renderItems() {
+    var grid = $('productsGrid');
+    var empty = $('productsEmpty');
+    if (!grid) return;
+    var products = getProducts();
+    var q = searchQuery.toLowerCase().trim();
+    var list = products.filter(function (p) {
+      if (activeCat && p.category !== activeCat) return false;
+      if (!q) return true;
+      var hay = (p.name + ' ' + (p.partNumber || '') + ' ' + (p.description || '')).toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+    if (!list.length) {
+      grid.innerHTML = '';
+      if (empty) { empty.style.display = 'block'; empty.textContent = 'Not found'; }
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    grid.innerHTML = list.map(cardHtml).join('');
+  }
+
+  function renderSearch() {
+    var q = searchQuery.toLowerCase().trim();
+    var empty = $('productsEmpty');
+    if (!q) {
+      if (activeCat) { $('categoryView').style.display = 'none'; $('itemsView').style.display = 'block'; renderItems(); }
+      else { $('categoryView').style.display = 'block'; $('itemsView').style.display = 'none'; renderCategories(); }
+      if (empty) empty.style.display = 'none';
+      return;
+    }
+    $('categoryView').style.display = 'none';
+    $('itemsView').style.display = 'block';
+    $('activeCatTitle').textContent = 'Search results';
+    var products = getProducts();
+    var list = products.filter(function (p) {
+      var hay = (p.name + ' ' + (p.partNumber || '') + ' ' + (p.description || '')).toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+    var grid = $('productsGrid');
+    if (!list.length) {
+      grid.innerHTML = '';
+      if (empty) { empty.style.display = 'block'; empty.textContent = 'Not found'; }
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    grid.innerHTML = list.map(cardHtml).join('');
+  }
+
   function initProducts() {
-    renderFilters();
-    renderProducts();
+    renderCategories();
     var search = $('productSearch');
     if (search) {
       var t;
@@ -170,10 +200,21 @@
         clearTimeout(t);
         t = setTimeout(function () {
           searchQuery = search.value;
-          renderProducts();
+          renderSearch();
         }, 180);
       });
     }
+    var more = $('showMoreCats');
+    if (more) more.onclick = function () { catsShown += 6; renderCategories(); };
+    var back = $('backToCats');
+    if (back) back.onclick = function () {
+      activeCat = null;
+      searchQuery = '';
+      if (search) search.value = '';
+      $('itemsView').style.display = 'none';
+      $('categoryView').style.display = 'block';
+      renderCategories();
+    };
   }
 
   function renderGallery() {
@@ -196,11 +237,9 @@
     var formWrap = $('contactFormWrap');
     var grid = $('promoGrid');
     if (!promoSection || !formWrap) return;
-
     var promos = getPromotions().filter(function (p) {
       return p && (p.active === true || p.active === 'true' || p.active === 1);
     });
-
     if (promos.length) {
       promoSection.classList.add('visible');
       formWrap.classList.add('hidden');
@@ -270,7 +309,6 @@
     try { if (typeof ClynData !== 'undefined') st = ClynData.getSettings() || {}; } catch (e) {}
     var logo = st.logo || '';
     var hero = st.heroImage || '';
-
     document.querySelectorAll('.logo').forEach(function (logoEl) {
       var icon = logoEl.querySelector('.logo-icon');
       var img = logoEl.querySelector('.logo-img');
@@ -291,14 +329,12 @@
         if (icon) icon.style.display = '';
       }
     });
-
     var bg = document.querySelector('.hero-bg');
     if (bg && hero && hero.indexOf('data:') === 0) {
       bg.style.backgroundImage = 'linear-gradient(rgba(26,26,46,0.55), rgba(26,26,46,0.65)), url("' + hero + '")';
       bg.style.backgroundSize = 'cover';
       bg.style.backgroundPosition = 'center';
     }
-
     if (st.phone) {
       document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
         a.href = 'tel:' + st.phone.replace(/\s/g, '');
