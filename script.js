@@ -97,12 +97,13 @@
     );
     return '<article class="product-card">' +
       img +
+      '<div style="padding:16px">' +
       '<h3>' + esc(p.name) + '</h3>' +
       '<p class="product-desc">' + esc(p.partNumber ? 'Part: ' + p.partNumber : (p.description || '')) + '</p>' +
       '<div class="product-meta">' +
         '<span class="product-price">' + esc(price) + '</span>' +
         '<a class="product-enquire" href="' + enquire + '" target="_blank" rel="noopener">Enquire</a>' +
-      '</div></article>';
+      '</div></div></article>';
   }
 
   function renderCategories() {
@@ -115,11 +116,14 @@
     var shown = cats.slice(0, catsShown);
     grid.innerHTML = shown.map(function (c) {
       var count = products.filter(function (p) { return p.category === c.id; }).length;
-      return '<article class="product-card" data-opencat="' + esc(c.id) + '" style="cursor:pointer;text-align:center;padding:32px 16px">' +
-        '<h3 style="margin-bottom:8px">' + esc(c.name) + '</h3>' +
+      var cimg = c.image ? '<div class="product-img-wrap"><img class="product-img" src="' + c.image + '" alt="' + esc(c.name) + '"></div>' : '';
+      return '<article class="product-card" data-opencat="' + esc(c.id) + '" style="cursor:pointer">' +
+        cimg +
+        '<div style="padding:16px;text-align:center">' +
+        '<h3 style="margin-bottom:6px">' + esc(c.name) + '</h3>' +
         '<p class="product-desc">' + count + ' items</p>' +
         '<span class="btn btn-primary btn-sm">View items</span>' +
-        '</article>';
+        '</div></article>';
     }).join('');
     if (more) more.style.display = catsShown < cats.length ? 'inline-flex' : 'none';
     if (empty) empty.style.display = 'none';
