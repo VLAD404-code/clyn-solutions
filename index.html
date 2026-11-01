@@ -26,7 +26,6 @@
   --shadow-lg: 0 12px 40px rgba(26, 26, 46, 0.12);
   --transition: 0.25s ease;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
@@ -34,9 +33,7 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 button, input, select, textarea { font-family: inherit; font-size: 1rem; }
-
 .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; font-weight: 600; font-size: 0.95rem; border-radius: var(--radius-sm); border: 2px solid transparent; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
 .btn-primary { background: var(--red); color: var(--white); border-color: var(--red); }
 .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-1px); }
@@ -48,7 +45,7 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
 .btn-danger { background: #dc2626; color: white; border-color: #dc2626; }
 .btn-danger:hover { background: #b91c1c; }
-
+.btn-ghost { background: transparent; color: var(--navy); border-color: var(--gray-light); }
 .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); transition: all var(--transition); }
 .header.scrolled { background: rgba(26,26,46,0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
@@ -64,10 +61,8 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
 .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
-
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; background: var(--navy); overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 20%, rgba(0, 166, 81, 0.15), transparent), radial-gradient(ellipse 60% 50% at 20% 80%, rgba(43, 43, 54, 0.8), transparent), linear-gradient(180deg, var(--navy) 0%, #12121F 100%); pointer-events: none; }
-.hero-bg::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.6; }
 .hero-content { position: relative; z-index: 1; max-width: 700px; }
 .hero-badge { display: inline-block; padding: 6px 14px; background: rgba(0, 166, 81, 0.15); border: 1px solid rgba(0, 166, 81, 0.3); color: #5CDB95; font-size: 0.8rem; font-weight: 600; border-radius: 100px; margin-bottom: 20px; }
 .hero h1 { font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 800; line-height: 1.15; color: var(--white); margin-bottom: 20px; }
@@ -78,13 +73,11 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .hero-stats .stat { display: flex; flex-direction: column; }
 .stat-number { font-weight: 700; font-size: 1.05rem; color: var(--white); }
 .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
-
 .section { padding: 80px 0; }
 .section-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
 .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
 .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 800; color: var(--navy); margin-bottom: 12px; }
 .section-header p { color: var(--text-muted); font-size: 1.05rem; }
-
 .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
 .about-content p { margin-bottom: 16px; color: var(--text-muted); }
 .about-highlights { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
@@ -96,43 +89,33 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .about-card-hours { display: flex; flex-direction: column; gap: 4px; margin-bottom: 24px; font-size: 0.9rem; }
 .about-card-hours strong { color: var(--red); margin-bottom: 4px; }
 .about-card-hours span { color: rgba(255,255,255,0.7); }
-
-.product-filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
-.filter-btn { padding: 8px 16px; border-radius: 100px; border: 1.5px solid var(--gray-light); background: var(--white); font-weight: 600; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: all var(--transition); }
-.filter-btn:hover, .filter-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
-.product-search-wrap { max-width: 420px; margin: 0 auto 32px; }
-.product-search { width: 100%; padding: 12px 16px; border: 1.5px solid var(--gray-light); border-radius: var(--radius-sm); font-size: 0.95rem; }
+.product-search-wrap { max-width: 480px; margin: 0 auto 32px; }
+.product-search { width: 100%; padding: 14px 18px; border: 1.5px solid var(--gray-light); border-radius: var(--radius-sm); font-size: 1rem; }
 .product-search:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(0,166,81,0.12); }
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 .product-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); display: flex; flex-direction: column; }
 .product-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
 .product-img-wrap { aspect-ratio: 16/10; background: var(--off-white); overflow: hidden; }
 .product-img { width: 100%; height: 100%; object-fit: cover; }
-.product-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
 .product-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
 .product-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; flex: 1; }
 .product-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .product-price { font-weight: 700; color: var(--navy); font-size: 0.9rem; }
-.product-cat { font-size: 0.75rem; color: var(--gray); background: var(--off-white); padding: 3px 8px; border-radius: 4px; }
-.product-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--red); background: rgba(0,166,81,0.1); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
-.products-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+.products-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 1.1rem; }
 .products-cta { text-align: center; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--gray-light); }
 .products-cta p { color: var(--text-muted); margin-bottom: 16px; }
-
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
 .gallery-item { border-radius: var(--radius); overflow: hidden; background: var(--navy); position: relative; aspect-ratio: 4/3; display: flex; align-items: flex-end; }
 .gallery-item-bg { position: absolute; inset: 0; opacity: 0.4; background: linear-gradient(135deg, var(--navy-light), var(--red)); }
 .gallery-item-content { position: relative; z-index: 1; padding: 20px; color: var(--white); width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.6)); }
 .gallery-item h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
 .gallery-item p { font-size: 0.85rem; opacity: 0.8; }
-
 .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
 .why-card { background: var(--off-white); border-radius: var(--radius); padding: 28px 24px; transition: all var(--transition); }
 .why-card:hover { background: var(--white); box-shadow: var(--shadow); }
 .why-number { font-size: 1.5rem; font-weight: 800; color: var(--red); margin-bottom: 12px; opacity: 0.6; }
 .why-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
 .why-card p { font-size: 0.9rem; color: var(--text-muted); }
-
 .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
 .contact-item { display: flex; gap: 16px; margin-bottom: 24px; }
 .contact-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(0,166,81,0.1); color: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -145,7 +128,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-light); border-radius: var(--radius-sm); background: var(--white); transition: border-color var(--transition); }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(0,166,81,0.12); }
 .form-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; text-align: center; }
-
 .promo-section { display: none; }
 .promo-section.visible { display: block; }
 .promo-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
@@ -160,7 +142,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .promo-card .btn:hover { background: #fff; transform: translateY(-1px); }
 .contact-form-wrap { display: block; }
 .contact-form-wrap.hidden { display: none; }
-
 .footer { background: var(--navy); color: var(--white); padding: 60px 0 0; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand .logo { margin-bottom: 16px; }
@@ -173,7 +154,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 20px 0; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
 .footer-bottom a { color: rgba(255,255,255,0.5); }
 .footer-bottom a:hover { color: var(--red); }
-
 .modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; padding: 20px; }
 .modal.open, .modal.active { display: flex; }
 .modal-content { background: var(--white); border-radius: var(--radius); padding: 32px; max-width: 400px; width: 100%; text-align: center; box-shadow: var(--shadow-lg); }
@@ -182,7 +162,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
 .modal-content p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px; }
 .modal-hint { font-size: 0.85rem !important; }
 .modal-content .btn { margin-top: 16px; }
-
 @media (max-width: 768px) {
   .nav { display: none; position: absolute; top: 72px; left: 0; right: 0; background: var(--navy); flex-direction: column; padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .nav.open { display: flex; }
@@ -201,17 +180,8 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
   <header class="header" id="header">
     <div class="container header-inner">
       <a href="#home" class="logo">
-        <div class="logo-icon"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="20" cy="20" r="18" stroke="#00A651" stroke-width="2.5" fill="none"/>
-  <text x="8" y="26" font-family="Arial Black, sans-serif" font-weight="900" font-size="16" fill="#00A651">C</text>
-  <text x="20" y="22" font-family="Georgia, serif" font-size="11" fill="#A8B0BC">∞</text>
-  <text x="20" y="30" font-family="Arial, sans-serif" font-weight="700" font-size="6" fill="#3B82F6">LYN</text>
-</svg>
-        </div>
-        <div class="logo-text">
-          <span class="logo-name">C-LYN</span>
-          <span class="logo-sub">SOLUTIONS LIMITED</span>
-        </div>
+        <div class="logo-icon"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="#00A651" stroke-width="2.5" fill="none"/><text x="8" y="26" font-family="Arial Black, sans-serif" font-weight="900" font-size="16" fill="#00A651">C</text><text x="20" y="22" font-family="Georgia, serif" font-size="11" fill="#A8B0BC">∞</text><text x="20" y="30" font-family="Arial, sans-serif" font-weight="700" font-size="6" fill="#3B82F6">LYN</text></svg></div>
+        <div class="logo-text"><span class="logo-name">C-LYN</span><span class="logo-sub">SOLUTIONS LIMITED</span></div>
       </a>
       <nav class="nav" id="nav">
         <a href="#home" class="nav-link active">Home</a>
@@ -222,15 +192,11 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
       <div class="header-actions">
-        <a href="https://wa.me/260965018323" target="_blank" rel="noopener" class="btn btn-whatsapp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
-        </a>
+        <a href="https://wa.me/260965018323" target="_blank" rel="noopener" class="btn btn-whatsapp">WhatsApp</a>
         <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
-
   <main>
     <section class="hero" id="home">
       <div class="hero-bg"></div>
@@ -249,14 +215,9 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
         </div>
       </div>
     </section>
-
     <section class="section" id="about">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">About</span>
-          <h2>Built for the Copperbelt</h2>
-          <p>We keep mining and transport running with the right parts, at the right time.</p>
-        </div>
+        <div class="section-header"><span class="section-tag">About</span><h2>Built for the Copperbelt</h2><p>We keep mining and transport running with the right parts, at the right time.</p></div>
         <div class="about-grid">
           <div class="about-content">
             <p>C-LYN SOLUTIONS LIMITED is a Kitwe-based supplier of mining equipment, truck and heavy-duty spares, electrical components and general trading goods. We work with operators who need parts that arrive, fit, and last.</p>
@@ -270,51 +231,41 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
           <div class="about-card">
             <h3>Visit or call</h3>
             <p>Based in Kitwe, Copperbelt. Reach us for a quote or to check stock on the part you need.</p>
-            <div class="about-card-hours">
-              <strong>Hours</strong>
-              <span>Mon–Fri 08:00–17:00</span>
-              <span>Sat 08:00–13:00</span>
-            </div>
+            <div class="about-card-hours"><strong>Hours</strong><span>Mon–Fri 08:00–17:00</span><span>Sat 08:00–13:00</span></div>
             <a href="#contact" class="btn btn-primary">Get in touch</a>
           </div>
         </div>
       </div>
     </section>
-
     <section class="section" id="products" style="background:var(--off-white)">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Catalogue</span>
-          <h2>Products</h2>
-          <p>Filter by category or search by name and part number.</p>
+        <div class="section-header"><span class="section-tag">Catalogue</span><h2>Products</h2><p>Choose a category, or search by part name or serial number.</p></div>
+        <div class="product-search-wrap"><input class="product-search" id="productSearch" placeholder="Search by part name or serial number"></div>
+        <div id="categoryView">
+          <div class="products-grid" id="categoryGrid"></div>
+          <div style="text-align:center;margin-top:24px"><button type="button" class="btn btn-primary" id="showMoreCats" style="display:none">Show more categories</button></div>
         </div>
-        <div class="product-filters" id="productFilters"></div>
-        <div class="product-search-wrap"><input class="product-search" id="productSearch" placeholder="Search products or part numbers"></div>
-        <div class="products-grid" id="productsGrid"></div>
-        <p class="products-empty" id="productsEmpty" style="display:none">No products match that search.</p>
+        <div id="itemsView" style="display:none">
+          <button type="button" class="btn btn-ghost" id="backToCats" style="margin-bottom:16px">← All categories</button>
+          <h3 id="activeCatTitle" style="margin-bottom:16px"></h3>
+          <div class="products-grid" id="productsGrid"></div>
+        </div>
+        <p class="products-empty" id="productsEmpty" style="display:none">Not found</p>
         <div class="products-cta">
           <p>Need something not listed? Ask for a quote.</p>
           <a href="https://wa.me/260965018323" target="_blank" rel="noopener" class="btn btn-whatsapp">Enquire on WhatsApp</a>
         </div>
       </div>
     </section>
-
     <section class="section" id="gallery">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Gallery</span>
-          <h2>What we supply</h2>
-        </div>
+        <div class="section-header"><span class="section-tag">Gallery</span><h2>What we supply</h2></div>
         <div class="gallery-grid" id="galleryGrid"></div>
       </div>
     </section>
-
     <section class="section" id="why-us" style="background:var(--off-white)">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Why us</span>
-          <h2>Why operators choose C-LYN</h2>
-        </div>
+        <div class="section-header"><span class="section-tag">Why us</span><h2>Why operators choose C-LYN</h2></div>
         <div class="why-grid">
           <div class="why-card"><div class="why-number">01</div><h3>Local & responsive</h3><p>Based in Kitwe. Quick answers on WhatsApp and clear lead times.</p></div>
           <div class="why-card"><div class="why-number">02</div><h3>The right parts</h3><p>Mining, truck, hydraulic and electrical spares sourced for the job.</p></div>
@@ -323,13 +274,9 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
         </div>
       </div>
     </section>
-
     <section class="section" id="contact">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Contact</span>
-          <h2>Get in touch</h2>
-        </div>
+        <div class="section-header"><span class="section-tag">Contact</span><h2>Get in touch</h2></div>
         <div class="contact-grid">
           <div>
             <div class="contact-item"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><strong>Phone</strong><p><a href="tel:+260965018323">+260 965 018 323</a></p></div></div>
@@ -354,7 +301,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
       </div>
     </section>
   </main>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -363,26 +309,12 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
           <p>Mining & truck parts. Kitwe, Zambia.</p>
           <p class="footer-tagline">Your solution is our Resolution.</p>
         </div>
-        <div class="footer-links">
-          <h4>Links</h4>
-          <a href="#about">About</a>
-          <a href="#products">Products</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <p>Kitwe, Copperbelt</p>
-          <p><a href="tel:+260965018323">+260 965 018 323</a></p>
-          <p><a href="mailto:info@clynsolutions.com">info@clynsolutions.com</a></p>
-        </div>
+        <div class="footer-links"><h4>Links</h4><a href="#about">About</a><a href="#products">Products</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></div>
+        <div class="footer-contact"><h4>Contact</h4><p>Kitwe, Copperbelt</p><p><a href="tel:+260965018323">+260 965 018 323</a></p><p><a href="mailto:info@clynsolutions.com">info@clynsolutions.com</a></p></div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> C-LYN SOLUTIONS LIMITED. <a href="admin.html">Admin</a></p>
-      </div>
+      <div class="footer-bottom"><p>&copy; <span id="year"></span> C-LYN SOLUTIONS LIMITED. <a href="admin.html">Admin</a></p></div>
     </div>
   </footer>
-
   <div class="modal" id="successModal">
     <div class="modal-content">
       <div class="modal-icon">✓</div>
@@ -392,7 +324,6 @@ button, input, select, textarea { font-family: inherit; font-size: 1rem; }
       <button type="button" class="btn btn-primary" id="closeModal">Close</button>
     </div>
   </div>
-
   <script src="data.js"></script>
   <script src="supabase-config.js"></script>
   <script src="supabase-sync.js"></script>
