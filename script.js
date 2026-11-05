@@ -32,12 +32,12 @@
       if (g && g.length) return g;
     }
     return [
-      { title: 'Truck Parts', caption: 'Heavy duty components', image: 'https://raw.githubusercontent.com/VLAD404-code/clyn-solutions/main/images/gallery1.jpg' },
-      { title: 'Filters & Consumables', caption: 'Everyday essentials', image: 'https://raw.githubusercontent.com/VLAD404-code/clyn-solutions/main/images/gallery2.jpg' },
-      { title: 'Engine Parts', caption: 'Reliable supply', image: 'https://raw.githubusercontent.com/VLAD404-code/clyn-solutions/main/images/cummins.jpg' },
-      { title: 'Air Filters', caption: 'Clean air, better performance', image: 'https://raw.githubusercontent.com/VLAD404-code/clyn-solutions/main/images/filter.jpg' },
-      { title: 'Volvo Engines', caption: 'OEM quality', image: 'https://raw.githubusercontent.com/VLAD404-code/clyn-solutions/main/images/volvo.jpg' },
-      { title: 'Accessories', caption: 'Lights and more', image: 'https://raw.githubusercontent.com/VLAD404-code/clyn-solutions/main/images/accessories.jpg' }
+      { title: 'Truck Parts', caption: 'Heavy duty components', image: 'https://www.clynsolutions.com/images/gallery1.jpg' },
+      { title: 'Filters & Consumables', caption: 'Everyday essentials', image: 'https://www.clynsolutions.com/images/gallery2.jpg' },
+      { title: 'Engine Parts', caption: 'Reliable supply', image: 'https://www.clynsolutions.com/images/cummins.jpg' },
+      { title: 'Air Filters', caption: 'Clean air, better performance', image: 'https://www.clynsolutions.com/images/filter.jpg' },
+      { title: 'Volvo Engines', caption: 'OEM quality', image: 'https://www.clynsolutions.com/images/volvo.jpg' },
+      { title: 'Accessories', caption: 'Lights and more', image: 'https://www.clynsolutions.com/images/accessories.jpg' }
     ];
   }
 
