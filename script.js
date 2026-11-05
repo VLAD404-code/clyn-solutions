@@ -254,7 +254,7 @@
     var grid = $('promoGrid');
     if (!promoSection || !formWrap) return;
     var promos = getPromotions().filter(function (p) {
-      return p && (p.active === true || p.active === 'true' || p.active === 1);
+      return p && (p.active === true || p.active === 'true' || p.active === 1 || p.active === '1');
     });
     if (promos.length) {
       promoSection.classList.add('visible');
