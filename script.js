@@ -20,6 +20,10 @@
   }
 
   function getPromotions() {
+    // Prefer live data dispatched from cloud sync
+    if (window._clynLivePromos && Array.isArray(window._clynLivePromos)) {
+      return window._clynLivePromos;
+    }
     if (typeof ClynData !== 'undefined' && ClynData.getPromotions) {
       return ClynData.getPromotions() || [];
     }
