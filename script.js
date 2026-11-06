@@ -350,7 +350,7 @@
       }
     });
     var bg = document.querySelector('.hero-bg');
-    if (bg && hero && hero.indexOf('data:') === 0) {
+    if (bg && hero) {
       bg.style.backgroundImage = 'linear-gradient(rgba(26,26,46,0.55), rgba(26,26,46,0.65)), url("' + hero + '")';
       bg.style.backgroundSize = 'cover';
       bg.style.backgroundPosition = 'center';
