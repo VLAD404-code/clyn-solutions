@@ -124,7 +124,7 @@
         var localPromos = [];
         try { localPromos = JSON.parse(localStorage.getItem('clyn_promotions') || '[]'); } catch (e) {}
         if (promotions && promotions.length) {
-          localStorage.setItem('clyn_promotions', JSON.stringify(promotions));
+          localStorage.setItem('clyn_promotions', JSON.stringify(promotions || [])); window._clynLivePromos = promotions || [];
         } else if (localPromos && localPromos.length) {
           promotions = localPromos;
           setTimeout(function () { if (window.ClynSupabase && window.ClynSupabase.publish) window.ClynSupabase.publish(); }, 300);
